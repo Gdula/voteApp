@@ -20,4 +20,7 @@ public class UpdateUserDto {
     @NotBlank
     @Size(min = 3)
     private String mail;
+    @NotBlank
+    @Size(min = 8)
+    private String password;
 }
