@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,4 +24,6 @@ public class UpdateUserDto {
     @NotBlank
     @Size(min = 8)
     private String password;
+    private List<String> ownedQuestionIds;
+
 }

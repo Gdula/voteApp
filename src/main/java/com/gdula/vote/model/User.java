@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -36,5 +38,7 @@ public class User {
     @Size(min = 3)
     private String password;
 
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Question> questions = new ArrayList<>();
 
 }

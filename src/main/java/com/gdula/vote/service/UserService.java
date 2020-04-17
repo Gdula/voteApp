@@ -5,6 +5,7 @@ import com.gdula.vote.repository.UserRepository;
 import com.gdula.vote.service.dto.CreateUserDto;
 import com.gdula.vote.service.dto.UpdateUserDto;
 import com.gdula.vote.service.dto.UserDto;
+import com.gdula.vote.service.exception.UserNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

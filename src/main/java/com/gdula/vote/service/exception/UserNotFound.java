@@ -1,4 +1,4 @@
-package com.gdula.vote.service;
+package com.gdula.vote.service.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
