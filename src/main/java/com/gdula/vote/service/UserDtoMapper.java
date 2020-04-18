@@ -17,13 +17,11 @@ public class UserDtoMapper {
     private QuestionRepository questionRepository;
 
     public UserDto toDto(User user) {
-        List<String> questionIds = user.getQuestions().stream().map(c -> c.getId()).collect(Collectors.toList());
-        return new UserDto(user.getId(), user.getLogin(), user.getName(), user.getSurname(), user.getMail(), questionIds);
+        return new UserDto(user.getId(), user.getLogin(), user.getName(), user.getSurname(), user.getMail(), user.getParticipant());
     }
 
     public User toModel(CreateUserDto dto) {
-        List<Question> questions = questionRepository.findAllByIdIn(dto.getOwnedQuestionIds());
 
-        return new User(dto.getId(), dto.getLogin(), dto.getName(), dto.getSurname(), dto.getMail(), dto.getPassword(), questions);
+        return new User(dto.getId(), dto.getLogin(), dto.getName(), dto.getSurname(), dto.getMail(), dto.getPassword(), dto.getParticipant());
     }
 }

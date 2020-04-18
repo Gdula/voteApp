@@ -38,7 +38,13 @@ public class User {
     @Size(min = 3)
     private String password;
 
+    /*
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
+    */
+
+    @ManyToOne
+    private User participant;
+
 
 }

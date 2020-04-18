@@ -18,8 +18,13 @@ public class Question {
     @Column(columnDefinition = "varchar(100)")
     private String id;
 
+    /*
     @ManyToOne
     private User owner;
+    */
+
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
+    private List<User> participants = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Variant> variants = new ArrayList<>();
