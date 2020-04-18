@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 public class UserService {
@@ -38,8 +41,31 @@ public class UserService {
         user.setName(dto.getName());
         user.setSurname(dto.getSurname());
         user.setMail(dto.getMail());
+        user.setParticipant(dto.getParticipant());
 
         return mapper.toDto(user);
 
+    }
+
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(u -> mapper.toDto(u))
+                .collect(Collectors.toList());
+    }
+
+    public UserDto getUserById(String id) throws UserNotFound {
+        return userRepository.findById(id)
+                .map(c -> mapper.toDto(c))
+                .orElseThrow(() -> new UserNotFound());
+    }
+
+    public UserDto deleteUserById(String id) throws UserNotFound {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFound());
+
+        userRepository.delete(user);
+
+        return mapper.toDto(user);
     }
 }
