@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface QuestionRepository extends CrudRepository<Question, String> {
     List<Question> findAllByIdIn(List<String> questionIds);
+    List<Question> findAll();
 }

@@ -1,6 +1,5 @@
 package com.gdula.vote.service;
 
-import com.gdula.vote.model.User;
 import com.gdula.vote.model.Variant;
 import com.gdula.vote.service.dto.CreateUpdateVariantDto;
 import com.gdula.vote.service.dto.VariantDto;
