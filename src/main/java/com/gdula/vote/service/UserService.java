@@ -5,6 +5,8 @@ import com.gdula.vote.repository.UserRepository;
 import com.gdula.vote.service.dto.CreateUserDto;
 import com.gdula.vote.service.dto.UpdateUserDto;
 import com.gdula.vote.service.dto.UserDto;
+import com.gdula.vote.service.exception.UserAlreadyExists;
+import com.gdula.vote.service.exception.UserDataInvalid;
 import com.gdula.vote.service.exception.UserNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +25,15 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserDto createUser(CreateUserDto dto) {
+    public UserDto createUser(CreateUserDto dto) throws UserDataInvalid, UserAlreadyExists {
+        if (dto.getLogin() == null || dto.getLogin().isEmpty()
+                || dto.getPassword() == null || dto.getPassword().isEmpty()) {
+            throw new UserDataInvalid();
+        }
+
+        if (userRepository.existsByLogin(dto.getLogin())) {
+            throw new UserAlreadyExists();
+        }
         User userToSave = mapper.toModel(dto);
 
         String hashedPass = passwordEncoder.encode(userToSave.getPassword());
@@ -34,7 +44,11 @@ public class UserService {
         return mapper.toDto(savedUser);
     }
 
-    public UserDto updateUser(UpdateUserDto dto, String id) throws UserNotFound {
+    public UserDto updateUser(UpdateUserDto dto, String id) throws UserNotFound, UserDataInvalid {
+        if (dto.getPassword() == null || dto.getPassword().isEmpty()) {
+            throw new UserDataInvalid();
+        }
+
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound());
 
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -68,4 +82,6 @@ public class UserService {
 
         return mapper.toDto(user);
     }
+
+
 }
