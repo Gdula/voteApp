@@ -1,10 +1,12 @@
 package com.gdula.vote.service;
 
 import com.gdula.vote.model.Question;
+import com.gdula.vote.model.User;
 import com.gdula.vote.repository.QuestionRepository;
 import com.gdula.vote.repository.UserRepository;
 import com.gdula.vote.service.dto.CreateUpdateQuestionDto;
 import com.gdula.vote.service.dto.QuestionDto;
+import com.gdula.vote.service.dto.UpdateUserDto;
 import com.gdula.vote.service.exception.QuestionNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,15 @@ public class QuestionService {
         Question savedQuestion = questionRepository.save(questionToSave);
 
         return mapper.toDto(savedQuestion);
+    }
+
+    public QuestionDto upadateQuestion(CreateUpdateQuestionDto dto, String id) throws QuestionNotFound {
+        Question question = questionRepository.findById(id).orElseThrow(() -> new QuestionNotFound());
+
+        question.setParticipants(dto.getParticipants());
+        question.setVariants(dto.getVariants());
+
+        return  mapper.toDto(question);
     }
 
 
