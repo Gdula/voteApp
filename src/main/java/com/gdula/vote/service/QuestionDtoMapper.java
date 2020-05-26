@@ -11,13 +11,13 @@ import java.util.UUID;
 @Service
 public class QuestionDtoMapper {
     public QuestionDto toDto(Question question) {
-        return new QuestionDto(question.getId(), question.getParticipants(), question.getVariants());
+        return new QuestionDto(question.getId(), question.getQuestionText(), question.getParticipants(), question.getVariants());
     }
 
     public Question toModel(CreateUpdateQuestionDto dto) {
         String randomId = UUID.randomUUID().toString();
 
-        return new Question(randomId, dto.getParticipants(), dto.getVariants());
+        return new Question(randomId, dto.getQuestionText(), dto.getParticipants(), dto.getVariants());
     }
 
 

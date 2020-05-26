@@ -14,8 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class QuestionDto {
     private String id;
+    private String questionText;
     private List<User> participants = new ArrayList<>();
     private List<Variant> variants = new ArrayList<>();
+
 
 
 }

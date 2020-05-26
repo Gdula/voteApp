@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUpdateQuestionDto {
+    private String questionText;
     private List<User> participants = new ArrayList<>();
     private List<Variant> variants = new ArrayList<>();
 

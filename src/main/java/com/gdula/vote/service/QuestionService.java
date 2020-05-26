@@ -58,6 +58,7 @@ public class QuestionService {
 
         question.setParticipants(dto.getParticipants());
         question.setVariants(dto.getVariants());
+        question.setQuestionText(dto.getQuestionText());
 
         return  mapper.toDto(question);
     }
