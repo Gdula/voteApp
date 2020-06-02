@@ -36,7 +36,26 @@ public class UserViewController {
         return mav;
     }
 
-    
+    @PostMapping("/create-user")
+    public String createUser(@Valid @ModelAttribute(name = "dto") CreateUserDto dto, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("users", userService.getAllUsers());
+            return "create-car-form";
+        }
+        try {
+            userService.createUser(dto);
+        } catch (UserAlreadyExists | UserDataInvalid e) {
+            // powrót do formularza z tymi samymi danymi
+            e.printStackTrace();
+            model.addAttribute("dto", dto);
+            model.addAttribute("users", userService.getAllUsers());
+
+            return "create-user-form";
+        }
+
+        return "redirect:/users";
+    }
 
 
 }

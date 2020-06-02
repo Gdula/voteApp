@@ -1,5 +1,6 @@
 package com.gdula.vote.service.dto;
 
+import com.gdula.vote.model.Question;
 import com.gdula.vote.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,6 @@ public class UpdateUserDto {
     @NotBlank
     @Size(min = 8)
     private String password;
-    private User participant;
+    private Question question;
 
 }

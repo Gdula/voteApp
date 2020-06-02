@@ -11,12 +11,12 @@ import java.util.UUID;
 public class UserDtoMapper {
 
     public UserDto toDto(User user) {
-        return new UserDto(user.getId(), user.getLogin(), user.getName(), user.getSurname(), user.getMail(), user.getParticipant());
+        return new UserDto(user.getId(), user.getLogin(), user.getName(), user.getSurname(), user.getMail(), user.getQuestion());
     }
 
     public User toModel(CreateUserDto dto) {
         String randomId = UUID.randomUUID().toString();
 
-        return new User(randomId, dto.getLogin(), dto.getName(), dto.getSurname(), dto.getMail(), dto.getPassword(), dto.getParticipant());
+        return new User(randomId, dto.getLogin(), dto.getName(), dto.getSurname(), dto.getMail(), dto.getPassword(), dto.getQuestion());
     }
 }

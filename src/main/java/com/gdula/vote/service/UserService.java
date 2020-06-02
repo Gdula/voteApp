@@ -55,7 +55,7 @@ public class UserService {
         user.setName(dto.getName());
         user.setSurname(dto.getSurname());
         user.setMail(dto.getMail());
-        user.setParticipant(dto.getParticipant());
+        user.setQuestion(dto.getQuestion());
 
         return mapper.toDto(user);
 

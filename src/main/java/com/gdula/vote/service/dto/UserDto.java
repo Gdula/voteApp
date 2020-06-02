@@ -1,5 +1,6 @@
 package com.gdula.vote.service.dto;
 
+import com.gdula.vote.model.Question;
 import com.gdula.vote.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,6 @@ public class UserDto {
     private String name;
     private String surname;
     private String mail;
-    private User participant;
+    private Question question;
 
 }

@@ -24,8 +24,8 @@ public class Question {
     @Size(min = 3)
     private String questionText;
 
-    @Column(columnDefinition = "varchar(100)")
-    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<User> participants = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)

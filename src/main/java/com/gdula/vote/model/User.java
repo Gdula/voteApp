@@ -44,7 +44,7 @@ public class User {
     */
 
     @ManyToOne
-    private User participant;
+    private Question question;
 
 
 }
