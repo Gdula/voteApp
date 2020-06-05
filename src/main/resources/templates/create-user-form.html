@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new user</title>
+</head>
+<body>
+<h1>
+    Create new user
+</h1>
+
+<form action="#" th:action="@{/create-user}" th:object="${dto}" method="post">
+    <fieldset>
+        <label for="login-field">Login</label>
+        <input type="text" id="login-field" th:field="*{login}">
+
+        <div style="color: red" th:if="${#fields.hasErrors('login')}">
+            Incorrect login (must be at least 3 characters long!
+        </div>
+
+        <br>
+
+        <label for="name-field">Name</label>
+        <input type="text" id="name-field" th:field="*{name}">
+        <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+
+
+        <br>
+
+        <label for="surname-field">Surname</label>
+        <input type="text" id="surname-field" th:field="*{surname}">
+        <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></div>
+
+        <br>
+
+
+        <label for="mail-field">mail</label>
+        <input type="text" id="mail-field" th:field="*{mail}">
+        <div style="color: red" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></div>
+
+        <br>
+
+        <label for="mail-field">password</label>
+        <input type="text" id="password-field" th:field="*{password}">
+        <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        <br>
+    </fieldset>
+
+    <input type="submit" value="Create">
+</form>
+
+<a href="/">Back to index</a>
+
+</body>
+</html>

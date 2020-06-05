@@ -36,12 +36,30 @@ public class UserViewController {
         return mav;
     }
 
+    @GetMapping("/create-user")
+    public String displayCreateUserForm(Model model) {
+        List<UserDto> allUsers = userService.getAllUsers();
+
+        /*
+
+        CreateUpdateCarDto dto = new CreateUpdateCarDto();
+        dto.setHp(100);
+        dto.setYear(2000);
+        model.addAttribute("dto", dto);
+        model.addAttribute("users", allUsers);
+        */
+        CreateUserDto dto = new CreateUserDto();
+        model.addAttribute("dto", dto);
+
+        return "create-user-form";
+    }
+
     @PostMapping("/create-user")
     public String createUser(@Valid @ModelAttribute(name = "dto") CreateUserDto dto, BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("users", userService.getAllUsers());
-            return "create-car-form";
+            return "create-user-form";
         }
         try {
             userService.createUser(dto);
