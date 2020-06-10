@@ -7,6 +7,7 @@ import com.gdula.vote.repository.UserRepository;
 import com.gdula.vote.service.dto.CreateUpdateQuestionDto;
 import com.gdula.vote.service.dto.QuestionDto;
 import com.gdula.vote.service.dto.UpdateUserDto;
+import com.gdula.vote.service.exception.QuestionDataInvalid;
 import com.gdula.vote.service.exception.QuestionNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,8 +47,13 @@ public class QuestionService {
         return mapper.toDto(question);
     }
 
-    public QuestionDto createQuestion(CreateUpdateQuestionDto dto) {
+    public QuestionDto createQuestion(CreateUpdateQuestionDto dto) throws QuestionDataInvalid {
+        if(dto.getQuestionText().isEmpty()) {
+            throw new QuestionDataInvalid();
+        }
+
         Question questionToSave = mapper.toModel(dto);
+        questionToSave.setQuestionText(dto.getQuestionText());
         Question savedQuestion = questionRepository.save(questionToSave);
 
         return mapper.toDto(savedQuestion);

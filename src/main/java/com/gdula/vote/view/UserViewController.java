@@ -57,7 +57,7 @@ public class UserViewController {
     @PostMapping("/create-user")
     public String createUser(@Valid @ModelAttribute(name = "dto") CreateUserDto dto, BindingResult bindingResult, Model model) {
 
-        if(bindingResult.hasErrors()){
+        if(bindingResult.hasErrors()) {
             model.addAttribute("users", userService.getAllUsers());
             return "create-user-form";
         }
