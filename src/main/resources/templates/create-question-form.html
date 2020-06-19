@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new user</title>
+</head>
+<body>
+<h1>
+    Create new question
+</h1>
+
+<form action="#" th:action="@{/create-question}" th:object="${dto}" method="post">
+    <fieldset>
+        <label for="question_text-field">Text</label>
+        <input type="text" id="question_text-field" th:field="*{questionText}">
+
+        <div style="color: red" th:if="${#fields.hasErrors('questionText')}">
+            Incorrect login (must be at least 3 characters long!
+        </div>
+
+        <br>
+
+    </fieldset>
+
+    <input type="submit" value="Create">
+</form>
+
+<a href="/">Back to index</a>
+
+</body>
+</html>

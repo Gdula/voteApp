@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Questions table | Spring Template App</title>
+</head>
+<body>
+
+<h1>Questions table</h1>
+
+<table>
+    <tr>
+        <td>id</td>
+        <td>text</td>
+    </tr>
+    <tr th:each="question:${questions}">
+        <td th:text="${question.id}"></td>
+        <td th:text="${question.questionText}"></td>
+
+        <td>
+            <a th:href="'delete-question/' + ${question.id}">Delete</a>
+            <a th:href="'update-question/' + ${question.id}">Update</a>
+            <a th:href="'add-variant/' + ${question.id}">Add variant</a>
+        </td>
+    </tr>
+
+
+</table>
+
+<a href="/">Back to index</a>
+
+</body>
+</html>

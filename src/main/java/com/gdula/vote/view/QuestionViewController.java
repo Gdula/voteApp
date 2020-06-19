@@ -31,7 +31,7 @@ public class QuestionViewController {
         return mav;
     }
 
-    @GetMapping("create-question")
+    @GetMapping("/create-question")
     public String displayCreateQuestionForm(Model model) {
         CreateUpdateQuestionDto dto = new CreateUpdateQuestionDto();
         model.addAttribute("dto", dto);
