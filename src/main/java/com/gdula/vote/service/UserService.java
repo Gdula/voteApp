@@ -57,6 +57,8 @@ public class UserService {
         user.setMail(dto.getMail());
         user.setQuestion(dto.getQuestion());
 
+        User savedUser = userRepository.save(user);
+
         return mapper.toDto(user);
 
     }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update new user | Spring Template App</title>
+</head>
+<body>
+<h1>
+    Update user with ID <b th:text="${id}"></b>
+</h1>
+
+<form action="#" th:action="@{/update-user/{id}(id=${id})}" th:object="${dto}" method="post">
+    <fieldset>
+        <legend for="name-field">Name</legend>
+        <input type="text" id="name-field" th:field="*{name}">
+
+        <br>
+
+        <legend for="surname-field">Surname</legend>
+        <input type="text" id="surname-field" th:field="*{surname}">
+
+        <br>
+
+
+        <legend for="mail-field">mail</legend>
+        <input type="text" id="mail-field" th:field="*{mail}">
+
+        <br>
+
+        <legend for="password-field">password</legend>
+        <input type="text" id="hp-field" th:field="*{password}">
+
+        <br>
+    </fieldset>
+
+    <input type="submit" value="Update">
+</form>
+
+<a href="/">Back to index</a>
+
+</body>
+</html>

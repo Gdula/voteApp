@@ -3,6 +3,7 @@ package com.gdula.vote.view;
 import com.gdula.vote.service.UserDtoMapper;
 import com.gdula.vote.service.UserService;
 import com.gdula.vote.service.dto.CreateUserDto;
+import com.gdula.vote.service.dto.UpdateUserDto;
 import com.gdula.vote.service.dto.UserDto;
 import com.gdula.vote.service.exception.UserAlreadyExists;
 import com.gdula.vote.service.exception.UserDataInvalid;
@@ -86,6 +87,34 @@ public class UserViewController {
         }
 
         return "redirect:/users";
+    }
+
+    @GetMapping("/update-user/{id}")
+    public ModelAndView displayUpdateUserForm(@PathVariable String id) {
+
+        try {
+            UserDto userById = userService.getUserById(id);
+
+            UpdateUserDto updateUserDto = userDtoMapper.toUpdateDto(userById);
+            ModelAndView mav = new ModelAndView("update-user-form");
+            mav.addObject("dto", updateUserDto);
+            mav.addObject("id", id);
+            return mav;
+
+        } catch (UserNotFound userNotFound) {
+            return new ModelAndView("redirect:/users");
+        }
+    }
+
+    @PostMapping("/update-user/{id}")
+    public String updateUser(@ModelAttribute UpdateUserDto dto, @PathVariable String id) {
+
+        try {
+            userService.updateUser(dto, id);
+            return "redirect:/users";
+        } catch (UserDataInvalid | UserNotFound e) {
+            return "redirect:/update-user/" + id;
+        }
     }
 
 }

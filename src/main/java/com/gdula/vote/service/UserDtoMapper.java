@@ -2,6 +2,7 @@ package com.gdula.vote.service;
 
 import com.gdula.vote.model.User;
 import com.gdula.vote.service.dto.CreateUserDto;
+import com.gdula.vote.service.dto.UpdateUserDto;
 import com.gdula.vote.service.dto.UserDto;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,9 @@ public class UserDtoMapper {
         String randomId = UUID.randomUUID().toString();
 
         return new User(randomId, dto.getLogin(), dto.getName(), dto.getSurname(), dto.getMail(), dto.getPassword(), dto.getQuestion());
+    }
+
+    public UpdateUserDto toUpdateDto(UserDto userById) {
+        return new UpdateUserDto(userById.getLogin(), userById.getName(), userById.getSurname(), userById.getMail(), userById.getQuestion());
     }
 }
