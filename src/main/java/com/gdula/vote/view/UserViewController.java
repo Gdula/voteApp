@@ -6,12 +6,14 @@ import com.gdula.vote.service.dto.CreateUserDto;
 import com.gdula.vote.service.dto.UserDto;
 import com.gdula.vote.service.exception.UserAlreadyExists;
 import com.gdula.vote.service.exception.UserDataInvalid;
+import com.gdula.vote.service.exception.UserNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -75,5 +77,15 @@ public class UserViewController {
         return "redirect:/users";
     }
 
+    @GetMapping("/delete-user/{id}")
+    public String deleteUser(@PathVariable String id) {
+        try {
+            userService.deleteUserById(id);
+        } catch (UserNotFound userNotFound) {
+            userNotFound.printStackTrace();
+        }
+
+        return "redirect:/users";
+    }
 
 }
