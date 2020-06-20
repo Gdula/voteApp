@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+
+    <span th:each="question : ${questions}">
+        <td th:text="${question.questionText}"></td>
+        <td>
+            <tr th:each="variant: ${question.getVariants()}">
+                <td th:text="${variant.variant}"></td>
+            </tr>
+        </td>
+    </span>
+
+
+</table>
+<a href="index.html">Back to main page</a>
+</body>
+</html>

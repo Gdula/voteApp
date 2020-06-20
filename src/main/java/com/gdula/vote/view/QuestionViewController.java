@@ -1,5 +1,7 @@
 package com.gdula.vote.view;
 
+import com.gdula.vote.model.Question;
+import com.gdula.vote.repository.QuestionRepository;
 import com.gdula.vote.service.QuestionService;
 import com.gdula.vote.service.dto.CreateUpdateQuestionDto;
 import com.gdula.vote.service.dto.QuestionDto;
@@ -20,6 +22,10 @@ import java.util.List;
 public class QuestionViewController {
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private QuestionRepository questionRepository;
+
 
     @GetMapping("/questions")
     public ModelAndView displayQuestionTable() {
@@ -57,5 +63,18 @@ public class QuestionViewController {
         }
 
         return "redirect:/questions";
+    }
+
+    @GetMapping("/questions-variants")
+    public ModelAndView displayQuestionsAndVariants() {
+        ModelAndView mav = new ModelAndView("questions-variants-table");
+
+        List<Question> questions = questionRepository.findAll();
+
+
+        List<QuestionDto> allQuestions = questionService.getAllQuestions();
+        mav.addObject("questions", allQuestions);
+
+        return mav;
     }
 }

@@ -27,15 +27,17 @@ public class QuestionService {
     private UserRepository userRepository;
     private VariantService variantService;
     private VariantRepository variantRepository;
+    private SecurityUtils securityUtils;
 
     @Autowired
-    public QuestionService(QuestionRepository questionRepository, QuestionDtoMapper questionDtoMapper, UserRepository userRepository, VariantService variantService, VariantDtoMapper variantDtoMapper, VariantRepository variantRepository) {
+    public QuestionService(QuestionRepository questionRepository, QuestionDtoMapper questionDtoMapper, UserRepository userRepository, VariantService variantService, VariantDtoMapper variantDtoMapper, VariantRepository variantRepository, SecurityUtils securityUtils) {
         this.questionRepository = questionRepository;
         this.questionDtoMapper = questionDtoMapper;
         this.userRepository = userRepository;
         this.variantService = variantService;
         this.variantDtoMapper = variantDtoMapper;
         this.variantRepository = variantRepository;
+        this.securityUtils = securityUtils;
     }
 
     public List<QuestionDto> getAllQuestions() {
