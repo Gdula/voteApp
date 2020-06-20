@@ -25,9 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable() // wyłączenie zabezpieczenia przed CSRF
+        http.csrf()
+                .disable() // wyłączenie zabezpieczenia przed CSRF
                 .authorizeRequests() // autoryzuj wszystkie żądania
                 .antMatchers("/admin/**").hasRole("ADMIN") // tylko użytkownik z rolą ADMIN ma dostęp do /admin/**
+                .antMatchers("/create-user/**").permitAll()
                 .anyRequest().authenticated() // wszystkie pozostałe zapytania dostępne tylko dla zalogowanych
                 .and()
                 .formLogin() // generowanie formularza logowania
