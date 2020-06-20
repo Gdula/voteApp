@@ -11,4 +11,5 @@ public interface UserRepository extends CrudRepository<User, String> {
     List<User> findAll();
     Boolean existsByLogin(String string);
 
+    User findFirstByLogin(String username);
 }

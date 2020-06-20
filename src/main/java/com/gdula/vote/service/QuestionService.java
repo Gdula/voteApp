@@ -94,31 +94,10 @@ public class QuestionService {
         List<Variant> variants = new ArrayList<>(questionRepository.findById(id).orElseThrow(() -> new QuestionNotFound())
                 .getVariants());
 
-        /*
-        System.out.println(questionToSave.toString());
-        System.out.println(dto.toString());
         dto.setQuestion(questionToSave);
-        System.out.println(dto.toString());
-
-        variantDtoMapper.toModel(dto);
-
-        //variantRepository.save(variant);
-
-        //questionToSave.setVariants(questionToSave.getVariants().add(new Variant(dto.g)));
-
-        */
-        dto.setQuestion(questionToSave);
-        System.out.println(questionToSave.toString());
-        System.out.println(dto.toString());
-        System.out.println(variants.toString());
         variants.add(variantDtoMapper.toModel(dto));
-        System.out.println(variants.toString());
-
-
         questionToSave.setVariants(variants);
-
         questionRepository.save(questionToSave);
-
 
         return questionDtoMapper.toDto(questionToSave);
     }
