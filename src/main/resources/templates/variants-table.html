@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Variants table | Spring Template App</title>
+</head>
+<body>
+
+<h1>Variants table</h1>
+
+<table>
+    <tr>
+        <td>id</td>
+        <td>variant</td>
+        <td>name</td>
+        <td>surname</td>
+    </tr>
+    <tr th:each="variant:${variants}">
+        <td th:text="${variant.id}"></td>
+        <td th:text="${variant.variant}"></td>
+
+        <td>
+            <a th:href="'delete-variant/' + ${variant.id}">Delete</a>
+            <a th:href="'update-variant/' + ${variant.id}">Update</a>
+        </td>
+
+
+    </tr>
+</table>
+
+<a href="/">Back to index</a>
+
+</body>
+</html>

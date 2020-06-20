@@ -20,5 +20,10 @@ public class QuestionDtoMapper {
         return new Question(randomId, dto.getQuestionText(), dto.getParticipants(), dto.getVariants());
     }
 
+    public CreateUpdateQuestionDto toUpdateDto(QuestionDto dto) {
+        return new CreateUpdateQuestionDto(dto.getQuestionText(), dto.getParticipants(), dto.getVariants());
+    }
+
+
 
 }

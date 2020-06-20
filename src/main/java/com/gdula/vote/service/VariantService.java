@@ -4,6 +4,8 @@ import com.gdula.vote.model.Variant;
 import com.gdula.vote.repository.VariantRepository;
 import com.gdula.vote.service.dto.CreateUpdateVariantDto;
 import com.gdula.vote.service.dto.VariantDto;
+import com.gdula.vote.service.exception.QuestionDataInvalid;
+import com.gdula.vote.service.exception.VariantDataInvalid;
 import com.gdula.vote.service.exception.VariantNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +42,10 @@ public class VariantService {
         return mapper.toDto(variant);
     }
 
-    public VariantDto createVariant(CreateUpdateVariantDto dto) {
+    public VariantDto createVariant(CreateUpdateVariantDto dto) throws VariantDataInvalid {
+        if(dto.getVariant().isEmpty()) {
+            throw new VariantDataInvalid();
+        }
         Variant variantToSave = mapper.toModel(dto);
         Variant savedVariant = variantRepository.save(variantToSave);
 

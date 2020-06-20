@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new variant</title>
+</head>
+<body>
+<h1>
+    Update variant with ID <b th:text="${id}"></b>
+</h1>
+
+<form action="#" th:action="@{/add-variant/{id}(id=${id})}" th:object="${dto}" method="post">
+    <fieldset>
+        <legend for="variant-field">Text</legend>
+        <input type="text" id="variant-field" th:field="*{variant}">
+
+        <br>
+    </fieldset>
+
+    <input type="submit" value="Create">
+</form>
+
+<a href="/">Back to index</a>
+
+</body>
+</html>

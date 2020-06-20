@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new variant</title>
+</head>
+<body>
+<h1>
+    Create new variant
+</h1>
+
+<form action="#" th:action="@{/create-variant}" th:object="${dto}" method="post">
+    <fieldset>
+        <label for="variant-field">Variant</label>
+        <input type="text" id="variant-field" th:field="*{variant}">
+
+        <div style="color: red" th:if="${#fields.hasErrors('variant')}">
+            Incorrect login (must be at least 3 characters long!
+        </div>
+
+        <br>
+
+    </fieldset>
+
+    <input type="submit" value="Create">
+</form>
+
+<a href="/">Back to index</a>
+
+</body>
+</html>
