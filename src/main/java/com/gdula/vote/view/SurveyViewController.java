@@ -39,7 +39,7 @@ public class SurveyViewController {
         CreateUpdateSurveyDto dto = new CreateUpdateSurveyDto();
         model.addAttribute("dto", dto);
 
-        return "create-question-form";
+        return "create-survey-form";
     }
 
     @PostMapping("/create-survey")
