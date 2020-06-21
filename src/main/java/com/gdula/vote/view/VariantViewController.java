@@ -1,14 +1,13 @@
 package com.gdula.vote.view;
 
-import com.gdula.vote.service.QuestionDtoMapper;
+import com.gdula.vote.service.mapper.QuestionDtoMapper;
 import com.gdula.vote.service.QuestionService;
-import com.gdula.vote.service.VariantDtoMapper;
+import com.gdula.vote.service.mapper.VariantDtoMapper;
 import com.gdula.vote.service.VariantService;
 import com.gdula.vote.service.dto.CreateUpdateQuestionDto;
 import com.gdula.vote.service.dto.CreateUpdateVariantDto;
 import com.gdula.vote.service.dto.QuestionDto;
 import com.gdula.vote.service.dto.VariantDto;
-import com.gdula.vote.service.exception.QuestionDataInvalid;
 import com.gdula.vote.service.exception.QuestionNotFound;
 import com.gdula.vote.service.exception.VariantDataInvalid;
 import org.springframework.beans.factory.annotation.Autowired;

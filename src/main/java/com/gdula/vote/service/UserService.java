@@ -8,6 +8,7 @@ import com.gdula.vote.service.dto.UserDto;
 import com.gdula.vote.service.exception.UserAlreadyExists;
 import com.gdula.vote.service.exception.UserDataInvalid;
 import com.gdula.vote.service.exception.UserNotFound;
+import com.gdula.vote.service.mapper.UserDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -55,11 +56,11 @@ public class UserService {
         user.setName(dto.getName());
         user.setSurname(dto.getSurname());
         user.setMail(dto.getMail());
-        user.setQuestion(dto.getQuestion());
+        user.setSurvey(dto.getSurvey());
 
         User savedUser = userRepository.save(user);
 
-        return mapper.toDto(user);
+        return mapper.toDto(savedUser);
 
     }
 

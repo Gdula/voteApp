@@ -1,6 +1,6 @@
 package com.gdula.vote.view;
 
-import com.gdula.vote.service.UserDtoMapper;
+import com.gdula.vote.service.mapper.UserDtoMapper;
 import com.gdula.vote.service.UserService;
 import com.gdula.vote.service.dto.CreateUserDto;
 import com.gdula.vote.service.dto.UpdateUserDto;

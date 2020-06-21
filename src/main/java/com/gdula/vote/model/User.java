@@ -46,7 +46,7 @@ public class User {
     */
 
     @ManyToOne
-    private Question question;
+    private Survey survey;
 
 
 }

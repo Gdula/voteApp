@@ -1,6 +1,7 @@
 package com.gdula.vote.service.dto;
 
 import com.gdula.vote.model.Question;
+import com.gdula.vote.model.Survey;
 import com.gdula.vote.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,6 @@ public class CreateUserDto {
     @NotBlank
     @Size(min = 3)
     private String password;
-    private Question question;
+    private Survey survey;
 
 }

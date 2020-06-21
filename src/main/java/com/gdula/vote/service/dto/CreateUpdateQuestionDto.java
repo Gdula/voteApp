@@ -1,5 +1,6 @@
 package com.gdula.vote.service.dto;
 
+import com.gdula.vote.model.Survey;
 import com.gdula.vote.model.User;
 import com.gdula.vote.model.Variant;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CreateUpdateQuestionDto {
     private String questionText;
-    private List<User> participants = new ArrayList<>();
+    private Survey survey;
     private List<Variant> variants = new ArrayList<>();
 
 

@@ -15,22 +15,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Question {
+public class Survey {
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(columnDefinition = "varchar(100)")
     private String id;
-
     @NotBlank
     @Size(min = 3)
-    private String questionText;
+    private String name;
 
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
+    private List<User> participants = new ArrayList<>();
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<Variant> variants = new ArrayList<>();
-
-    @ManyToOne
-    private Survey survey;
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
+    private List<Question> questions = new ArrayList<>();
 
 }

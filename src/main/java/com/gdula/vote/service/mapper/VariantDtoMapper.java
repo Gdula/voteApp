@@ -1,4 +1,4 @@
-package com.gdula.vote.service;
+package com.gdula.vote.service.mapper;
 
 import com.gdula.vote.model.Variant;
 import com.gdula.vote.service.dto.CreateUpdateVariantDto;

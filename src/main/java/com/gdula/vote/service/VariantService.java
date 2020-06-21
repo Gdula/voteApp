@@ -4,9 +4,9 @@ import com.gdula.vote.model.Variant;
 import com.gdula.vote.repository.VariantRepository;
 import com.gdula.vote.service.dto.CreateUpdateVariantDto;
 import com.gdula.vote.service.dto.VariantDto;
-import com.gdula.vote.service.exception.QuestionDataInvalid;
 import com.gdula.vote.service.exception.VariantDataInvalid;
 import com.gdula.vote.service.exception.VariantNotFound;
+import com.gdula.vote.service.mapper.VariantDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

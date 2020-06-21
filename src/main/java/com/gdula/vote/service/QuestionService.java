@@ -12,6 +12,8 @@ import com.gdula.vote.service.dto.VariantDto;
 import com.gdula.vote.service.exception.QuestionDataInvalid;
 import com.gdula.vote.service.exception.QuestionNotFound;
 import com.gdula.vote.service.exception.VariantDataInvalid;
+import com.gdula.vote.service.mapper.QuestionDtoMapper;
+import com.gdula.vote.service.mapper.VariantDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,7 +76,7 @@ public class QuestionService {
     public QuestionDto upadateQuestion(CreateUpdateQuestionDto dto, String id) throws QuestionNotFound {
         Question question = questionRepository.findById(id).orElseThrow(() -> new QuestionNotFound());
 
-        question.setParticipants(dto.getParticipants());
+        question.setSurvey(dto.getSurvey());
         question.setVariants(dto.getVariants());
         question.setQuestionText(dto.getQuestionText());
 
