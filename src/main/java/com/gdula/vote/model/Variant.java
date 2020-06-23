@@ -18,6 +18,7 @@ public class Variant {
     @Column(columnDefinition = "varchar(100)")
     private String id;
     private String variant;
+    private Integer voteAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;

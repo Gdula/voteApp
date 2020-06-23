@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--<title th:replace="${survey.getName()}">Layout Title</title>
+    -->
+</head>
+<body>
+<div align="center">
+    <h1 th:text="${survey.getName()}"></h1>
+    <form action="#" th:action="@{/complete-survey/{id}(id=${id})}" th:object="${survey}" method="post">
+        <span th:each="question : ${survey.getQuestions()}">
+        <td th:text="${question.questionText}"></td>
+        <td>
+            <tr th:each="variant: ${question.getVariants()}">
+                <td th:text="${variant.variant}"></td>
+            </tr>
+        </td>
+        </span>
+
+
+
+
+
+
+
+
+
+        <!--
+                <label>Full name:</label>
+                <input type="variant" th:field="*{name}" /><br/>
+
+                <label>E-mail:</label>
+                <input type="variant" th:field="*{email}" /><br/>
+
+                <label>Password:</label>
+                <input type="password" th:field="*{password}" /><br/>
+
+                <label>Birthday (yyyy-mm-dd):</label>
+                <input type="variant" th:field="*{birthday}" /><br/>
+
+                <label>Gender:</label>
+                <input type="radio" th:field="*{gender}" value="Male" />Male
+                <input type="radio" th:field="*{gender}" value="Female" />Female<br/>
+
+                <label>Profession:</label>
+                <select th:field="*{profession}">
+                    <option th:each="p : ${listProfession}" th:value="${p}" th:variant="${p}" />
+                </select>
+                <br/>
+
+                <label>Married?</label>
+                <input type="checkbox" th:field="*{married}" /><br/>
+
+                <label>Note:</label>
+                <textarea rows="5" cols="25" th:field="*{note}"></textarea>
+                <br/>
+        -->
+                <button type="submit">Register</button>
+
+
+            </form>
+        </div>
+        </body>
+        </html>

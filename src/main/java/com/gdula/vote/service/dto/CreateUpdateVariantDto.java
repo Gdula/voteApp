@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 public class CreateUpdateVariantDto {
     private String variant;
     private Question question;
+    private Integer voteAmount;
 
 }
