@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new question</title>
+</head>
+<body>
+<h1>
+    Update question with ID <b th:text="${id}"></b>
+</h1>
+
+<form action="#" th:action="@{/add-question/{id}(id=${id})}" th:object="${dto}" method="post">
+    <fieldset>
+        <legend for="question_text-field">Text</legend>
+        <input type="text" id="question_text-field" th:field="*{questionText}">
+
+        <br>
+    </fieldset>
+
+    <input type="submit" value="Create">
+</form>
+
+<a href="/">Back to index</a>
+
+</body>
+</html>

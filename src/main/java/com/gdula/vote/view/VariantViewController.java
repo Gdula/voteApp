@@ -108,21 +108,21 @@ public class VariantViewController {
         }
     }
 
-    @PostMapping("/variant/increment/{id}")
-    public String incrementVariant(@PathVariable String id) throws VariantNotFound {
+    @PostMapping("/variant/increment/{id}/{ids}")
+    public String incrementVariant(@PathVariable String id, @PathVariable String ids) {
         try {
             variantService.incrementVariant(id);
-            return "redirect:/questions";
+            return "redirect:/complete-survey/" + ids;
         } catch (VariantNotFound e) {
             return "redirect:/variant/increment/" + id;
         }
     }
 
-    @GetMapping("/variant/increment/{id}")
-    public String displaySurvey(@PathVariable String id) throws VariantNotFound {
+    @GetMapping("/variant/increment/{id}/{ids}")
+    public String displaySurvey(@PathVariable String id, @PathVariable String ids) {
         try {
             variantService.incrementVariant(id);
-            return "redirect:/questions";
+            return "redirect:/complete-survey/" + ids;
         } catch (VariantNotFound e) {
             return "redirect:/variant/increment/" + id;
         }

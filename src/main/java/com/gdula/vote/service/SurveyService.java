@@ -1,20 +1,24 @@
 package com.gdula.vote.service;
 
+import com.gdula.vote.model.Question;
 import com.gdula.vote.model.Survey;
 import com.gdula.vote.model.User;
 import com.gdula.vote.repository.SurveyRepository;
 import com.gdula.vote.repository.UserRepository;
+import com.gdula.vote.service.dto.CreateUpdateQuestionDto;
 import com.gdula.vote.service.dto.CreateUpdateSurveyDto;
 import com.gdula.vote.service.dto.SurveyDto;
 import com.gdula.vote.service.exception.SurveyDataInvalid;
 import com.gdula.vote.service.exception.SurveyNotFound;
 import com.gdula.vote.service.exception.UserDataInvalid;
 import com.gdula.vote.service.exception.UserNotFound;
+import com.gdula.vote.service.mapper.QuestionDtoMapper;
 import com.gdula.vote.service.mapper.SurveyDtoMapper;
 import com.gdula.vote.service.mapper.UserDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +36,8 @@ public class SurveyService {
     private UserService userService;
     @Autowired
     private UserDtoMapper userDtoMapper;
+    @Autowired
+    private QuestionDtoMapper questionDtoMapper;
 
     public SurveyDto createSurvey(CreateUpdateSurveyDto dto) throws SurveyDataInvalid {
         if(dto.getName().isEmpty()) {
@@ -92,6 +98,18 @@ public class SurveyService {
         userService.updateUser(userDtoMapper.toUpdateDto(userDtoMapper.toDto(userToAdd)), userToAdd.getId());
 
         return mapper.toDto(savedSurvey);
+    }
+
+    public SurveyDto addSurveyQuestion(CreateUpdateQuestionDto dto, String id) throws SurveyNotFound {
+        Survey surveyToSave = surveyRepository.findById(id).orElseThrow(() -> new SurveyNotFound());
+
+        List<Question> questions = new ArrayList<>(surveyToSave.getQuestions());
+        dto.setSurvey(surveyToSave);
+        questions.add(questionDtoMapper.toModel(dto));
+        surveyToSave.setQuestions(questions);
+        surveyRepository.save(surveyToSave);
+
+        return mapper.toDto(surveyToSave);
     }
 
 }

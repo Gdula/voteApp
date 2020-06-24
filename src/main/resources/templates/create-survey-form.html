@@ -11,7 +11,7 @@
 
 <form action="#" th:action="@{/create-survey}" th:object="${dto}" method="post">
     <fieldset>
-        <label for="name-field">Variant</label>
+        <label for="name-field">Name</label>
         <input type="text" id="name-field" th:field="*{name}">
 
         <div style="color: red" th:if="${#fields.hasErrors('name')}">
