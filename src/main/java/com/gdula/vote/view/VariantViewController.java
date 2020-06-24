@@ -1,5 +1,8 @@
 package com.gdula.vote.view;
 
+import com.gdula.vote.model.Variant;
+import com.gdula.vote.repository.VariantRepository;
+import com.gdula.vote.service.exception.VariantNotFound;
 import com.gdula.vote.service.mapper.QuestionDtoMapper;
 import com.gdula.vote.service.QuestionService;
 import com.gdula.vote.service.mapper.VariantDtoMapper;
@@ -36,6 +39,9 @@ public class VariantViewController {
 
     @Autowired
     private VariantDtoMapper variantDtoMapper;
+
+    @Autowired
+    private VariantRepository variantRepository;
 
     @GetMapping("/variants")
     public ModelAndView displayVariantTable() {
@@ -102,5 +108,24 @@ public class VariantViewController {
         }
     }
 
+    @PostMapping("/variant/increment/{id}")
+    public String incrementVariant(@PathVariable String id) throws VariantNotFound {
+        try {
+            variantService.incrementVariant(id);
+            return "redirect:/questions";
+        } catch (VariantNotFound e) {
+            return "redirect:/variant/increment/" + id;
+        }
+    }
+
+    @GetMapping("/variant/increment/{id}")
+    public String displaySurvey(@PathVariable String id) throws VariantNotFound {
+        try {
+            variantService.incrementVariant(id);
+            return "redirect:/questions";
+        } catch (VariantNotFound e) {
+            return "redirect:/variant/increment/" + id;
+        }
+    }
 
 }

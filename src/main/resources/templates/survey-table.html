@@ -5,6 +5,14 @@
     <!--<title th:replace="${survey.getName()}">Layout Title</title>
     -->
 </head>
+<script>
+    async function postData(variant) {
+        await fetch('http://localhost:8080:/variant/increment/' + variant , {
+            method: 'POST',
+        });
+        console.log(variant);
+    }
+</script>
 <body>
 <div align="center">
     <h1 th:text="${survey.getName()}"></h1>
@@ -15,11 +23,10 @@
 
         <span th:each="question : ${survey.getQuestions()}">
             <label th:text="${question.questionText}"></label>
-        <td th:text="${question.questionText}"></td>
         <td>
             <tr th:each="variant: ${question.getVariants()}">
-                <td th:text="${variant.variant}"></td>
-                <input type="radio" th:field="${variant.variant}" th:value="${variant.getVoteAmount() +1 }" />
+                <a th:href="@{/variant/increment/{id}(id=${variant.id})}"><b th:text="${variant.variant}"></b></a>
+
             </tr>
         </td>
         </span>
@@ -64,10 +71,10 @@
                 <textarea rows="5" cols="25" th:field="*{note}"></textarea>
                 <br/>
         -->
-                <button type="submit">Register</button>
+        <button type="submit">Register</button>
 
 
-            </form>
-        </div>
-        </body>
-        </html>
+    </form>
+</div>
+</body>
+</html>

@@ -83,7 +83,6 @@ public class SurveyService {
         User userToAdd = userRepository.findFirstByLogin(userName);
 
         participants.add(userToAdd);
-        System.out.println(participants);
 
         survey.setParticipants(participants);
         survey.setQuestions(dto.getQuestions());

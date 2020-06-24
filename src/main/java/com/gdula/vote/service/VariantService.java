@@ -10,6 +10,7 @@ import com.gdula.vote.service.mapper.VariantDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,4 +61,19 @@ public class VariantService {
 
         return mapper.toDto(variant);
     }
+
+
+    public VariantDto incrementVariant(String id) throws VariantNotFound {
+        Variant variant = variantRepository.findById(id).orElseThrow(() -> new VariantNotFound());
+
+        if (variant.getVoteAmount() == null) {
+            variant.setVoteAmount(0);
+        }
+
+        variant.setVoteAmount(variant.getVoteAmount()+1);
+        Variant savedVariant = variantRepository.save(variant);
+
+        return mapper.toDto(savedVariant);
+    }
+
 }
