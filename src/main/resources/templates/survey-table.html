@@ -9,14 +9,22 @@
 <div align="center">
     <h1 th:text="${survey.getName()}"></h1>
     <form action="#" th:action="@{/complete-survey/{id}(id=${id})}" th:object="${survey}" method="post">
+
+
+
+
         <span th:each="question : ${survey.getQuestions()}">
+            <label th:text="${question.questionText}"></label>
         <td th:text="${question.questionText}"></td>
         <td>
             <tr th:each="variant: ${question.getVariants()}">
                 <td th:text="${variant.variant}"></td>
+                <input type="radio" th:field="${variant.variant}" th:value="${variant.getVoteAmount() +1 }" />
             </tr>
         </td>
         </span>
+
+
 
 
 

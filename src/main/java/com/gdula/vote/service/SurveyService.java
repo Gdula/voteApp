@@ -80,9 +80,6 @@ public class SurveyService {
         List<User> participants = dto.getParticipants();
 
         String userName = securityUtils.getUserName();
-
-        System.out.println(userName);
-
         User userToAdd = userRepository.findFirstByLogin(userName);
 
         participants.add(userToAdd);
@@ -92,7 +89,6 @@ public class SurveyService {
         survey.setQuestions(dto.getQuestions());
 
         Survey savedSurvey = surveyRepository.save(survey);
-        System.out.println(savedSurvey.getParticipants());
         userToAdd.setSurvey(survey);
         userService.updateUser(userDtoMapper.toUpdateDto(userDtoMapper.toDto(userToAdd)), userToAdd.getId());
 

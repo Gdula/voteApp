@@ -12,5 +12,7 @@ public class VariantDto {
     private String id;
     private String variant;
     private Question question;
+    private Integer voteAmount;
+
 
 }

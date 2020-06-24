@@ -1,10 +1,11 @@
 package com.gdula.vote.view;
 
+import com.gdula.vote.model.Question;
 import com.gdula.vote.model.Survey;
+import com.gdula.vote.model.Variant;
 import com.gdula.vote.repository.SurveyRepository;
 import com.gdula.vote.service.SurveyService;
-import com.gdula.vote.service.dto.CreateUpdateSurveyDto;
-import com.gdula.vote.service.dto.SurveyDto;
+import com.gdula.vote.service.dto.*;
 import com.gdula.vote.service.exception.SurveyDataInvalid;
 import com.gdula.vote.service.exception.SurveyNotFound;
 import com.gdula.vote.service.exception.UserDataInvalid;
@@ -71,9 +72,11 @@ public class SurveyViewController {
     public ModelAndView showSurvey(@PathVariable String id) {
         try {
             SurveyDto surveyById = surveyService.getSurveyById(id);
+            List<Question> questions= surveyById.getQuestions();
 
             ModelAndView mav = new ModelAndView("survey-table");
             mav.addObject("survey", surveyById);
+            mav.addObject("questions", questions);
             mav.addObject("id", id);
             return mav;
 
@@ -83,10 +86,10 @@ public class SurveyViewController {
     }
 
     @PostMapping("/complete-survey/{id}")
-    public String completeSurvey(@ModelAttribute CreateUpdateSurveyDto dto, @PathVariable String id) {
+    public String completeSurvey(@ModelAttribute CreateUpdateSurveyDto createUpdateSurveyDto, @PathVariable String id) {
 
         try {
-            surveyService.completeSurvey(dto, id);
+            surveyService.completeSurvey(createUpdateSurveyDto, id);
             return "redirect:/surveys";
         } catch (SurveyNotFound | UserDataInvalid | UserNotFound e) {
             return "redirect:/complete-survey/" + id;
