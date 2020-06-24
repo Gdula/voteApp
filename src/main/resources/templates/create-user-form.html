@@ -40,7 +40,7 @@
 
         <br>
 
-        <label for="mail-field">password</label>
+        <label for="password-field">password</label>
         <input type="text" id="password-field" th:field="*{password}">
         <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         <br>

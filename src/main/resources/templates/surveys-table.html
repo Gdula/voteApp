@@ -18,13 +18,15 @@
         <td th:text="${survey.id}"></td>
         <td th:text="${survey.name}"></td>
         <td th:each="participant: ${survey.getParticipants()}">
-            <b th:text="${participant.login}"></b>,
+            <b th:text="${participant.name}"></b>,
         </td>
         <td>
             <a th:href="'delete-survey/' + ${survey.id}">Delete</a>
             <a th:href="'complete-survey/' + ${survey.id}">Complete survey</a>
             <a th:href="'edit-survey/' + ${survey.id}">Edit survey</a>
             <a th:href="'add-question/' + ${survey.id}">Add question</a>
+            <a th:href="'show-report/' + ${survey.id}">Show report</a>
+
         </td>
 
     </tr>

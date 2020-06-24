@@ -96,7 +96,7 @@ public class UserViewController {
             UserDto userById = userService.getUserById(id);
 
             UpdateUserDto updateUserDto = userDtoMapper.toUpdateDto(userById);
-            ModelAndView mav = new ModelAndView("add-user-form");
+            ModelAndView mav = new ModelAndView("update-user-form");
             mav.addObject("dto", updateUserDto);
             mav.addObject("id", id);
             return mav;

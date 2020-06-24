@@ -95,4 +95,22 @@ public class SurveyViewController {
             return "redirect:/complete-survey/" + id;
         }
     }
+
+    @GetMapping("/show-report/{id}")
+    public ModelAndView showReport(@PathVariable String id) {
+        try {
+            SurveyDto surveyById = surveyService.getSurveyById(id);
+            List<Question> questions= surveyById.getQuestions();
+
+            ModelAndView mav = new ModelAndView("show-raport");
+            mav.addObject("survey", surveyById);
+            mav.addObject("questions", questions);
+            mav.addObject("id", id);
+            return mav;
+
+        } catch (SurveyNotFound userNotFound) {
+            return new ModelAndView("redirect:/surveys");
+        }
+    }
+
 }
