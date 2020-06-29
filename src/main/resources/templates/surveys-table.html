@@ -8,31 +8,27 @@
 
 <h1>Surveys table</h1>
 
-<table>
-    <tr>
-        <td>id</td>
-        <td>text</td>
-        <td>participants</td>
-    </tr>
+<ol>
     <tr th:each="survey:${surveys}">
-        <td th:text="${survey.id}"></td>
-        <td th:text="${survey.name}"></td>
-        <td th:each="participant: ${survey.getParticipants()}">
+        <li>
+        Title: <td th:text="${survey.name}"></td> <br>
+        Participants: <td th:each="participant: ${survey.getParticipants()}">
             <b th:text="${participant.name}"></b>,
         </td>
+        <br>
+        <a th:href="'complete-survey/' + ${survey.id}">Complete survey</a>
+        <br>
         <td>
             <a th:href="'delete-survey/' + ${survey.id}">Delete</a>
-            <a th:href="'complete-survey/' + ${survey.id}">Complete survey</a>
             <a th:href="'edit-survey/' + ${survey.id}">Edit survey</a>
             <a th:href="'add-question/' + ${survey.id}">Add question</a>
             <a th:href="'show-report/' + ${survey.id}">Show report</a>
-
         </td>
-
+        </li>
     </tr>
 
 
-</table>
+</ol>
 
 <a href="/">Back to index</a>
 

@@ -17,7 +17,7 @@ public class QuestionDto {
     private String id;
     private String questionText;
     private Survey survey;
-    private List<Variant> variants = new ArrayList<>();
+    private List<VariantDto> variants = new ArrayList<>();
 
 
 

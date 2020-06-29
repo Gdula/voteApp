@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class VariantDto {
     private String id;
     private String variant;
-    private Question question;
+    private String questionID;
     private Integer voteAmount;
 
 

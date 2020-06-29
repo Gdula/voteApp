@@ -45,20 +45,20 @@ public class QuestionService {
     public List<QuestionDto> getAllQuestions() {
         return questionRepository.findAll()
                 .stream()
-                .map(q -> questionDtoMapper.toDto(q))
+                .map(q -> questionDtoMapper.toDto(q, getAllQuestionVariantsById(q.getId())))
                 .collect(Collectors.toList());
     }
 
     public QuestionDto getQuestionById(String id) throws QuestionNotFound {
         return questionRepository.findById(id)
-                .map(q -> questionDtoMapper.toDto(q)).orElseThrow(() -> new QuestionNotFound());
+                .map(q -> questionDtoMapper.toDto(q, getAllQuestionVariantsById(q.getId()))).orElseThrow(() -> new QuestionNotFound());
     }
 
     public QuestionDto deleteQuestionById(String id) throws QuestionNotFound {
         Question question = questionRepository.findById(id).orElseThrow(() -> new QuestionNotFound());
         questionRepository.delete(question);
 
-        return questionDtoMapper.toDto(question);
+        return questionDtoMapper.toDto(question, getAllQuestionVariantsById(question.getId()));
     }
 
     public QuestionDto createQuestion(CreateUpdateQuestionDto dto) throws QuestionDataInvalid {
@@ -70,7 +70,7 @@ public class QuestionService {
         questionToSave.setQuestionText(dto.getQuestionText());
         Question savedQuestion = questionRepository.save(questionToSave);
 
-        return questionDtoMapper.toDto(savedQuestion);
+        return questionDtoMapper.toDto(savedQuestion, getAllQuestionVariantsById(savedQuestion.getId()));
     }
 
     public QuestionDto upadateQuestion(CreateUpdateQuestionDto dto, String id) throws QuestionNotFound {
@@ -80,15 +80,15 @@ public class QuestionService {
         question.setVariants(dto.getVariants());
         question.setQuestionText(dto.getQuestionText());
 
-        return  questionDtoMapper.toDto(question);
+        return  questionDtoMapper.toDto(question, getAllQuestionVariantsById(question.getId()));
     }
 
-    public List<VariantDto> getAllQuestionVariantsById(String id) throws QuestionNotFound {
-        return questionRepository.findById(id).orElseThrow(() -> new QuestionNotFound())
+    public List<VariantDto> getAllQuestionVariantsById(String id) {
+        return questionRepository.findById(id).orElse(new Question())
                 .getVariants()
                 .stream()
                 .map(q -> variantDtoMapper.toDto(q))
-                .collect(Collectors.toList());
+                .collect    (Collectors.toList());
 
     }
 
@@ -103,7 +103,7 @@ public class QuestionService {
         questionToSave.setVariants(variants);
         questionRepository.save(questionToSave);
 
-        return questionDtoMapper.toDto(questionToSave);
+        return questionDtoMapper.toDto(questionToSave, getAllQuestionVariantsById(questionToSave.getId()));
     }
 
 }

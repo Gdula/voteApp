@@ -84,9 +84,8 @@ public class VariantViewController {
     @GetMapping("/add-variant/{id}")
     public ModelAndView displayAddVariantForm(@PathVariable String id, @ModelAttribute CreateUpdateVariantDto dto) {
         try {
-            QuestionDto questionById = questionService.getQuestionById(id);
+            questionService.getQuestionById(id);
 
-            CreateUpdateQuestionDto updateQuestionDto = questionDtoMapper.toUpdateDto(questionById);
             ModelAndView mav = new ModelAndView("add-variant-form");
             mav.addObject("dto",dto);
             mav.addObject("id",id);

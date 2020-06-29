@@ -7,25 +7,28 @@
 <body>
 
 <h1>Questions table</h1>
-
-<table>
-    <tr>
-        <td>id</td>
-        <td>text</td>
-    </tr>
-    <tr th:each="question:${questions}">
-        <td th:text="${question.id}"></td>
+<ol>
+    <span th:each="question:${questions}">
+        <li>
         <td th:text="${question.questionText}"></td>
+        <td th:text="${question.survey.name}"></td>
+        <br>
+
+        <ul>
+            <tr th:each="variant: ${question.variants}">
+                <li th:text="${variant.variant}"></li>
+            </tr>
+            <li> <a th:href="'add-variant/' + ${question.id}">Add variant </a></li>
+        </ul>
 
         <td>
             <a th:href="'delete-question/' + ${question.id}">Delete</a>
             <a th:href="'update-question/' + ${question.id}">Update</a>
-            <a th:href="'add-variant/' + ${question.id}">Add variant</a>
         </td>
-    </tr>
+        </li>
+    </span>
 
-
-</table>
+</ol>
 
 <a href="/">Back to index</a>
 
