@@ -10,7 +10,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Reprezentuje pytania w ankiecie
+ * Ankieta może posiadać wiele pytań
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
