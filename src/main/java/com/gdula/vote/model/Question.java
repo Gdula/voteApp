@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 /**
+ * class: Pytanie
  * Reprezentuje pytania w ankiecie
  * Ankieta może posiadać wiele pytań
  */
