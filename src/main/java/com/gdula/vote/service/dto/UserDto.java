@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * class: UserDto
+ * Reprezentuje dto użytkownika.
+ */
 
 @Data
 @NoArgsConstructor

@@ -14,6 +14,11 @@ import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * class: VariantService
+ * Reprezentuje serwis wariantu.
+ */
+
 @Service
 public class VariantService {
     private VariantRepository variantRepository;

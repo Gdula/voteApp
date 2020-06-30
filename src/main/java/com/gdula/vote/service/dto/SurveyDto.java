@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class: SurveyDto
+ * Reprezentuje dto pytania.
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

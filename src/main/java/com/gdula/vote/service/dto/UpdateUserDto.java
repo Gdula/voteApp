@@ -11,6 +11,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+/**
+ * class: UpdateUserDto
+ * Reprezentuje dto użytkownika służące do aktualizacji.
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

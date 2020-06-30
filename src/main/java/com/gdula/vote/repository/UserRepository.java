@@ -6,6 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * class: Repozytorium użytkownika
+ * Reprezentuje repozytorium użytkownika.
+ */
+
 @Repository
 public interface UserRepository extends CrudRepository<User, String> {
     List<User> findAll();

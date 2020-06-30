@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * class: CreateUserDto
+ * Reprezentuje dto służące do stworzenia użytkownika.
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

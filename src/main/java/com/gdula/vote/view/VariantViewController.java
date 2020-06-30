@@ -26,6 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * class: VariantViewController
+ * Reprezentuje kontroler wariantu.
+ */
+
 @Controller
 public class VariantViewController {
     @Autowired

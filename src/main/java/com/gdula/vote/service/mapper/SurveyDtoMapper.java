@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/**
+ * class: SurveyDtoMapper
+ * Reprezentuje mapper dto ankiety.
+ */
+
 @Service
 public class SurveyDtoMapper {
     public SurveyDto toDto(Survey survey) {

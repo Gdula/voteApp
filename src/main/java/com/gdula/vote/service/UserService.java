@@ -16,6 +16,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * class: UserService
+ * Reprezentuje serwis uzytkownika.
+ */
 
 @Service
 public class UserService {

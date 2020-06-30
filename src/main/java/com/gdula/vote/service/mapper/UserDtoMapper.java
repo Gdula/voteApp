@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/**
+ * class: UserDtoMapper
+ * Reprezentuje mapper dto użytkownika.
+ */
+
 @Service
 public class UserDtoMapper {
 

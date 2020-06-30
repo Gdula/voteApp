@@ -23,6 +23,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * class: QuestionViewController
+ * Reprezentuje kontroler pytania.
+ */
+
 @Controller
 public class QuestionViewController {
     @Autowired

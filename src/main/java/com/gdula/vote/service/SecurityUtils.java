@@ -6,6 +6,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+/**
+ * class: SecurityUtils
+ * Reprezentuje serwis zabezpieczeń.
+ */
+
 @Service
 public final class SecurityUtils {
     private SecurityUtils() {

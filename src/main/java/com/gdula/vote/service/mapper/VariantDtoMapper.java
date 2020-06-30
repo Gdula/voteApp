@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/**
+ * class: VariantDtoMapper
+ * Reprezentuje mapper dto wariantu.
+ */
+
 @Service
 public class VariantDtoMapper {
     public VariantDto toDto(Variant variant) {

@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * class: VariantDto
+ * Reprezentuje dto waraintu.
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

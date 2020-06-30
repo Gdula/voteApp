@@ -22,6 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * class: SecurityUtils
+ * Reprezentuje serwis ankiety.
+ */
+
 @Service
 public class SurveyService {
     @Autowired

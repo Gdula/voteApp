@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * class: QuestionService
+ * Reprezentuje serwis dla pytania.
+ */
+
 @Service
 public class QuestionService {
     private QuestionRepository questionRepository;

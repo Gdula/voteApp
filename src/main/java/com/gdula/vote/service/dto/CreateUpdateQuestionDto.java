@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class: CreateUpdateQuestionDto
+ * Reprezentuje dto służące do aktualizacji i stworzenia pytania.
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

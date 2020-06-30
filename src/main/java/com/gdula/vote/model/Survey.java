@@ -11,6 +11,12 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class: Ankieta
+ * Reprezentuje ankiety
+ * Ankieta może posiadać wiele pytań i uczestników
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

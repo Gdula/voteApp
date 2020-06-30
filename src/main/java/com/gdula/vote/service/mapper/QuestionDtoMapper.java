@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/**
+ * class: QuestionDtoMapper
+ * Reprezentuje mapper dto pytania.
+ */
+
 @Service
 public class QuestionDtoMapper {
     public QuestionDto toDto(Question question) {

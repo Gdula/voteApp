@@ -7,6 +7,12 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+/**
+ * class: Wariant
+ * Reprezentuje warianty
+ * Do jednego pytania może być przypisane wiele wariantów
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

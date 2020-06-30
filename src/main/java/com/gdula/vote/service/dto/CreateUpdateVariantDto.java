@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * class: CreateUpdateVariantDto
+ * Reprezentuje dto służące do aktualizacji i stworzenia wariantu.
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -8,6 +8,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * class: Konfiguracja zabezpieczeń
+ * Reprezentuje klase służącą do ustawień zabezpieczeń.
+ */
+
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired

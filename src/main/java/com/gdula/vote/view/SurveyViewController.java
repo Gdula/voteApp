@@ -23,6 +23,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * class: SurveyViewController
+ * Reprezentuje kontroler ankiety.
+ */
+
 @Controller
 public class SurveyViewController {
     @Autowired

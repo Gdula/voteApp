@@ -21,6 +21,13 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
+
+/**
+ * class: UserViewController
+ * Reprezentuje kontroler użytkownika.
+ */
+
+
 @Controller
 public class UserViewController {
     @Autowired

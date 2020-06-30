@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class: CreateUpdateSurveyDto
+ * Reprezentuje dto służące do aktualizacji i stworzenia ankiety.
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
