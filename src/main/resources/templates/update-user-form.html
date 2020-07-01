@@ -1,9 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
     <meta charset="UTF-8">
     <title>Update new user | Spring Template App</title>
 </head>
+<style>
+    body
+    {
+        background-color: #676068;
+    ;
+    }
+
+    h1
+    {
+        text-align: center;
+        background-color: #a52b3c;
+        color: #FFFFFF;
+    }
+
+    form
+    {
+        background-color: #a52b3c;
+    }
+
+    label
+    {
+        font-size: 25px;
+        font-style: bold;
+    }
+
+</style>
 <body>
 <h1>
     Update user with ID <b th:text="${id}"></b>

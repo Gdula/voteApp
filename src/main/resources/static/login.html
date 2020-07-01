@@ -4,17 +4,38 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
 
+<style>
+    body
+    {
+        text-align: center;
+        background-color: #9c959d;
+        color: white;
+        padding: 200px 0;
+        font-size: 30px;
+        text-decoration: none;
+    }
+
+    b
+    {
+        font-size: 100px;
+        color: #a52b3c
+    }
+
+
+</style>
+
+<body>
+<b>VoteApp</b>
 <form action="login.html" method="post">
     <fieldset>
-        <label for="login-input">Login:</label>
+        <label type="text" for="login-input">Login:</label>
         <input id="login-input" name="login">
         <br>
         <label for="pass-input">Password:</label>
-        <input id="pass-input" name="pass">
+        <input type="password" id="pass-input" name="pass">
         <br>
-        <a href="/create-user">Register</a>
+        <a href="/create-user" style="color: #000000; text-decoration: none">Register</a>
     </fieldset>
 
     <input type="submit" value="Login">

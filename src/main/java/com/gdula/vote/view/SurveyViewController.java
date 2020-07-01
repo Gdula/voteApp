@@ -2,8 +2,10 @@ package com.gdula.vote.view;
 
 import com.gdula.vote.model.Question;
 import com.gdula.vote.model.Survey;
+import com.gdula.vote.model.User;
 import com.gdula.vote.model.Variant;
 import com.gdula.vote.repository.SurveyRepository;
+import com.gdula.vote.service.SecurityUtils;
 import com.gdula.vote.service.SurveyService;
 import com.gdula.vote.service.dto.*;
 import com.gdula.vote.service.exception.SurveyDataInvalid;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * class: SurveyViewController
@@ -34,6 +37,8 @@ public class SurveyViewController {
     private SurveyRepository surveyRepository;
     @Autowired
     private SurveyService surveyService;
+    @Autowired
+    private SecurityUtils securityUtils;
 
     @GetMapping("/surveys")
     public ModelAndView displaySurveyTable() {
@@ -115,6 +120,31 @@ public class SurveyViewController {
 
         } catch (SurveyNotFound userNotFound) {
             return new ModelAndView("redirect:/surveys");
+        }
+    }
+
+    @GetMapping("/check-if-voted/{id}/")
+    public String checkIfVoted(@PathVariable String id) {
+        return "redirect:/survey-complete";
+    }
+
+    @PostMapping ("/check-if-voted/{id}/")
+    public String check(@PathVariable String id) {
+        try {
+            String login = securityUtils.getUserName();
+            ModelAndView mav = new ModelAndView("survey-complete");
+            SurveyDto survey = surveyService.getSurveyById(id);
+
+            List<User> users = survey.getParticipants();
+
+            for (User user : users) {
+                if (user.getLogin().equals(login)) {
+                    return "redirect:/survey-complete";
+                }
+            }
+            return "redirect:/survey-not-complete";
+        } catch (SurveyNotFound surveyNotFound) {
+            return "redirect:/surveys";
         }
     }
 

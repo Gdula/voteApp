@@ -1,0 +1,17 @@
+h1
+{
+	text-align: center;
+	background-color: #3e4444;
+	color: #FFFFFF;
+}
+
+form
+{
+	background-color: #82b74b;
+}
+
+label
+{
+	font-size: 25px;
+	font-style: bold;
+}

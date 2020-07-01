@@ -2,10 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!--<title th:replace="${survey.getName()}">Layout Title</title>
+    <link href="../static/css/mystyle.css" th:href="@{/css/mystyle.css}" rel="stylesheet" />
+   <!--<title th:replace="${survey.getName()}">Layout Title</title>
     -->
 </head>
+<style>
+    body
+    {
+        background-color: #676068;
+    ;
+    }
+
+    h1
+    {
+        text-align: center;
+        background-color: #a52b3c;
+        color: #FFFFFF;
+    }
+
+    form
+    {
+        background-color: #a52b3c;
+    }
+
+    label
+    {
+        font-size: 25px;
+        font-style: bold;
+    }
+
+</style>
 <body>
+
+<style>
+    h1
+    {
+        text-align: center;
+        background-color: #3e4444;
+        color: #FFFFFF;
+    }
+
+    form
+    {
+        background-color: #82b74b;
+    }
+
+    label
+    {
+        font-size: 25px;
+        font-style: bold;
+    }
+
+</style>
 <div align="center">
     <h1 th:text="${survey.getName()}"></h1>
     <form action="#" th:action="@{/show-raport/{id}(id=${id})}" th:object="${survey}" method="get">

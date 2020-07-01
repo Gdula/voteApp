@@ -2,9 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
     <!--<title th:replace="${survey.getName()}">Layout Title</title>
     -->
 </head>
+<style>
+    body
+    {
+        background-color: #676068;
+    ;
+    }
+
+    h1
+    {
+        text-align: center;
+        background-color: #a52b3c;
+        color: #FFFFFF;
+    }
+
+    form
+    {
+        background-color: #a52b3c;
+    }
+
+    label
+    {
+        font-size: 25px;
+        font-style: bold;
+    }
+
+</style>
 <body>
 <div align="center">
     <h1 th:text="${survey.getName()}"></h1>
