@@ -17,4 +17,6 @@ public class AnswerId implements Serializable {
     private String questionId;
     @Column(length = 100)
     private String userId;
+    @Column(length = 100)
+    private String surveyId;
 }

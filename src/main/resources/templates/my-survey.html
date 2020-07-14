@@ -34,10 +34,10 @@
 </style>
 <body>
 <div align="center">
-    <h1>My surveys</h1>
+    <h1 th:text="${survey.getName()}"></h1>
     <ul>
-        <li th:each="survey: ${surveys}">
-            <label th:text="${survey.name}"></label> <a th:href="'my/' + ${survey.id}">Open</a>
+        <li th:each="qr: ${questionResponses}">
+            <label th:text="${qr}"></label>
         </li>
     </ul>
 </div>
