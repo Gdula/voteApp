@@ -48,6 +48,16 @@ public class SurveyViewController {
         return mav;
     }
 
+    @GetMapping("/surveys/my")
+    public ModelAndView mySurveys() {
+        ModelAndView mav = new ModelAndView("my-surveys");
+
+        List<Survey> mySurveys = surveyService.getUserSurveys();
+        mav.addObject("surveys", mySurveys);
+
+        return mav;
+    }
+
     @GetMapping("/create-survey")
     public String displayCreateSurveyForm(Model model) {
         CreateUpdateSurveyDto dto = new CreateUpdateSurveyDto();

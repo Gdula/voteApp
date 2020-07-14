@@ -91,7 +91,6 @@ public class SurveyService {
     public void completeSurvey(MultiValueMap<String, String> answers, String id) throws SurveyNotFound, UserNotFound, UserDataInvalid {
         Survey survey = surveyRepository.findById(id).orElseThrow(() -> new SurveyNotFound());
 
-
         String userName = securityUtils.getUserName();
         User userToAdd = userRepository.findFirstByLogin(userName);
 
@@ -127,4 +126,11 @@ public class SurveyService {
         return mapper.toDto(surveyToSave);
     }
 
+    public List<Survey> getUserSurveys() {
+        String userName = securityUtils.getUserName();
+        User user = userRepository.findFirstByLogin(userName);
+        return surveyRepository.findAll().stream()
+                .filter(survey -> survey.getParticipants().contains(user))
+                .collect(Collectors.toList());
+    }
 }

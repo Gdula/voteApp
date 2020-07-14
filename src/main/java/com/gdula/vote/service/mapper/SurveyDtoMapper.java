@@ -5,6 +5,7 @@ import com.gdula.vote.service.dto.CreateUpdateSurveyDto;
 import com.gdula.vote.service.dto.SurveyDto;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
