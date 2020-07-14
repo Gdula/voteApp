@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * class: Wariant
@@ -28,4 +29,7 @@ public class Variant {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
+
+    @OneToMany(mappedBy = "answerKey", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Answer> answers;
 }

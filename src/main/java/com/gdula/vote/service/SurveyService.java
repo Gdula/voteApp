@@ -1,8 +1,7 @@
 package com.gdula.vote.service;
 
-import com.gdula.vote.model.Question;
-import com.gdula.vote.model.Survey;
-import com.gdula.vote.model.User;
+import com.gdula.vote.model.*;
+import com.gdula.vote.repository.AnswerRepository;
 import com.gdula.vote.repository.SurveyRepository;
 import com.gdula.vote.repository.UserRepository;
 import com.gdula.vote.service.dto.CreateUpdateQuestionDto;
@@ -17,6 +16,7 @@ import com.gdula.vote.service.mapper.SurveyDtoMapper;
 import com.gdula.vote.service.mapper.UserDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,8 @@ public class SurveyService {
     private UserDtoMapper userDtoMapper;
     @Autowired
     private QuestionDtoMapper questionDtoMapper;
+    @Autowired
+    private AnswerRepository answerRepository;
 
     public SurveyDto createSurvey(CreateUpdateSurveyDto dto) throws SurveyDataInvalid {
         if(dto.getName().isEmpty()) {
@@ -86,23 +88,31 @@ public class SurveyService {
         return mapper.toDto(survey);
     }
 
-    public SurveyDto completeSurvey(CreateUpdateSurveyDto dto, String id) throws SurveyNotFound, UserNotFound, UserDataInvalid {
+    public void completeSurvey(MultiValueMap<String, String> answers, String id) throws SurveyNotFound, UserNotFound, UserDataInvalid {
         Survey survey = surveyRepository.findById(id).orElseThrow(() -> new SurveyNotFound());
-        List<User> participants = dto.getParticipants();
+
 
         String userName = securityUtils.getUserName();
         User userToAdd = userRepository.findFirstByLogin(userName);
 
-        participants.add(userToAdd);
+        if(!survey.getParticipants().stream().filter(user -> user.getId() == userToAdd.getId())
+                .findFirst().isPresent()) {
+            survey.getParticipants().add(userToAdd);
+            surveyRepository.save(survey);
+        }
 
-        survey.setParticipants(participants);
-        survey.setQuestions(dto.getQuestions());
-
-        Survey savedSurvey = surveyRepository.save(survey);
-        userToAdd.setSurvey(survey);
-        userService.updateUser(userDtoMapper.toUpdateDto(userDtoMapper.toDto(userToAdd)), userToAdd.getId());
-
-        return mapper.toDto(savedSurvey);
+        survey.getQuestions().forEach(question -> {
+            if (answers.containsKey(question.getId())) {
+                String answerId = answers.get(question.getId()).get(0);
+                answerRepository.save(new Answer(
+                        new AnswerId(
+                            question.getId(),
+                            userToAdd.getId()
+                        ),
+                        answerId
+                ));
+            }
+        });
     }
 
     public SurveyDto addSurveyQuestion(CreateUpdateQuestionDto dto, String id) throws SurveyNotFound {

@@ -63,7 +63,7 @@
             <tr th:each="variant: ${question.getVariants()}">
                 <br>
                 <b th:text="${variant.variant}"></b>
-                <b th:text="${variant.voteAmount}"></b>
+                <b th:text="${variant.getAnswers().size()}"></b>
             </tr>
         </td>
             <br>
