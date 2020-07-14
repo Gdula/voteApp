@@ -38,13 +38,14 @@
     <form action="#" th:action="@{/complete-survey/{id}(id=${id})}" th:object="${survey}" method="post">
         <span th:each="question : ${survey.getQuestions()}">
             <label th:text="${question.questionText}"></label>
-        <td>
-            <tr th:each="variant: ${question.getVariants()}">
-                <br>
-                <a th:href="@{/variant/increment/{id}/{ids}(id=${variant.id}, ids=${survey.id})}"><b th:text="${variant.variant}"></b></a>
-            </tr>
-        </td>
-            <br>
+            <ul>
+                <li th:each="variant: ${question.getVariants()}">
+                    <label>
+                        <b th:text="${variant.variant}"></b>
+                        <input type="radio" th:name="${question.getId()}" th:value="${variant.getId()}">
+                    </label>
+                </li>
+            </ul>
         </span>
 
         <button type="submit">Wyślij</button>

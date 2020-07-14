@@ -45,10 +45,8 @@ public class User {
     @Size(min = 3)
     private String password;
 
-    /*
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Question> questions = new ArrayList<>();
-    */
+    @OneToMany(mappedBy = "answerId.userId", cascade = CascadeType.REMOVE)
+    private List<Answer> answers = new ArrayList<>();
 
     @ManyToOne
     private Survey survey;

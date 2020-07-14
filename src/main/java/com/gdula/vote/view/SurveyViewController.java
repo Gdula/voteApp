@@ -15,11 +15,9 @@ import com.gdula.vote.service.exception.UserNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -46,6 +44,16 @@ public class SurveyViewController {
 
         List<SurveyDto> allSurveys = surveyService.getAllSurveys();
         mav.addObject("surveys", allSurveys);
+
+        return mav;
+    }
+
+    @GetMapping("/surveys/my")
+    public ModelAndView mySurveys() {
+        ModelAndView mav = new ModelAndView("my-surveys");
+
+        List<Survey> mySurveys = surveyService.getUserSurveys();
+        mav.addObject("surveys", mySurveys);
 
         return mav;
     }
@@ -83,7 +91,6 @@ public class SurveyViewController {
         try {
             SurveyDto surveyById = surveyService.getSurveyById(id);
             List<Question> questions= surveyById.getQuestions();
-
             ModelAndView mav = new ModelAndView("survey-table");
             mav.addObject("survey", surveyById);
             mav.addObject("questions", questions);
@@ -96,14 +103,20 @@ public class SurveyViewController {
     }
 
     @PostMapping("/complete-survey/{id}")
-    public String completeSurvey(@ModelAttribute CreateUpdateSurveyDto createUpdateSurveyDto, @PathVariable String id) {
-
+    public String completeSurvey(@RequestBody MultiValueMap<String, String> formData, @PathVariable String id) {
         try {
-            surveyService.completeSurvey(createUpdateSurveyDto, id);
-            return "redirect:/surveys";
+            surveyService.completeSurvey(formData, id);
+            return "redirect:/surveys/complete";
         } catch (SurveyNotFound | UserDataInvalid | UserNotFound e) {
             return "redirect:/complete-survey/" + id;
         }
+    }
+
+    @GetMapping("/surveys/complete")
+    public ModelAndView completeSurvey() {
+        ModelAndView mav = new ModelAndView("survey-complete");
+        mav.addObject("hash", new String("xczxczxcz").hashCode());
+        return mav;
     }
 
     @GetMapping("/show-report/{id}")

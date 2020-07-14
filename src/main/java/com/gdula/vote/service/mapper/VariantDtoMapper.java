@@ -5,6 +5,7 @@ import com.gdula.vote.service.dto.CreateUpdateVariantDto;
 import com.gdula.vote.service.dto.VariantDto;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -21,6 +22,6 @@ public class VariantDtoMapper {
     public Variant toModel(CreateUpdateVariantDto dto) {
         String randomId = UUID.randomUUID().toString();
 
-        return  new Variant(randomId, dto.getVariant(), dto.getVoteAmount(), dto.getQuestion());
+        return  new Variant(randomId, dto.getVariant(), dto.getVoteAmount(), dto.getQuestion(), new ArrayList<>());
     }
 }

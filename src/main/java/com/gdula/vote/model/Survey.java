@@ -36,5 +36,4 @@ public class Survey {
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
-
 }
