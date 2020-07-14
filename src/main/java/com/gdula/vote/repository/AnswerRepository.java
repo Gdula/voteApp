@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * class: Repozytorium pytania
@@ -13,5 +14,5 @@ import java.util.List;
  */
 @Repository
 public interface AnswerRepository extends CrudRepository<Answer, String> {
-
+    Set<Answer> findByAnswerIdUserIdAndAnswerIdSurveyId(String userId, String surveyId);
 }

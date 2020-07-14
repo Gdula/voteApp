@@ -20,6 +20,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -88,7 +89,8 @@ public class SurveyService {
         return mapper.toDto(survey);
     }
 
-    public void completeSurvey(MultiValueMap<String, String> answers, String id) throws SurveyNotFound, UserNotFound, UserDataInvalid {
+    public String completeSurvey(MultiValueMap<String, String> answers, String id) throws SurveyNotFound, UserNotFound, UserDataInvalid {
+        String hash = UUID.randomUUID().toString();
         Survey survey = surveyRepository.findById(id).orElseThrow(() -> new SurveyNotFound());
 
         String userName = securityUtils.getUserName();
@@ -106,12 +108,15 @@ public class SurveyService {
                 answerRepository.save(new Answer(
                         new AnswerId(
                             question.getId(),
-                            userToAdd.getId()
+                            hash,
+                            survey.getId()
                         ),
                         answerId
                 ));
             }
         });
+
+        return hash;
     }
 
     public SurveyDto addSurveyQuestion(CreateUpdateQuestionDto dto, String id) throws SurveyNotFound {

@@ -35,11 +35,19 @@
 <body>
 <div align="center">
     <h1>My surveys</h1>
-    <ul>
-        <li th:each="survey: ${surveys}">
-            <label th:text="${survey.name}"></label> <a th:href="'my/' + ${survey.id}">Open</a>
-        </li>
-    </ul>
+    <form action="#" th:action="@{/surveys/my/{id}(id=${id})}" th:object="${dto}" method="post">
+        <fieldset>
+            <label for="name-field">Survey hash</label>
+            <input type="text" id="name-field" th:field="*{hash}">
+        </fieldset>
+
+        <input type="submit" value="Open">
+    </form>
+<!--    <ul>-->
+<!--        <li th:each="survey: ${surveys}">-->
+<!--            <label th:text="${survey.name}"></label>-->
+<!--        </li>-->
+<!--    </ul>-->
 </div>
 </body>
 </html>

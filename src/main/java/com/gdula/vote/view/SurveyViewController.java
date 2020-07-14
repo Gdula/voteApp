@@ -1,9 +1,7 @@
 package com.gdula.vote.view;
 
-import com.gdula.vote.model.Question;
-import com.gdula.vote.model.Survey;
-import com.gdula.vote.model.User;
-import com.gdula.vote.model.Variant;
+import com.gdula.vote.model.*;
+import com.gdula.vote.repository.AnswerRepository;
 import com.gdula.vote.repository.SurveyRepository;
 import com.gdula.vote.service.SecurityUtils;
 import com.gdula.vote.service.SurveyService;
@@ -19,10 +17,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * class: SurveyViewController
@@ -33,6 +32,8 @@ import java.util.Optional;
 public class SurveyViewController {
     @Autowired
     private SurveyRepository surveyRepository;
+    @Autowired
+    private AnswerRepository answerRepository;
     @Autowired
     private SurveyService surveyService;
     @Autowired
@@ -49,10 +50,11 @@ public class SurveyViewController {
     }
 
     @GetMapping("/surveys/my")
-    public ModelAndView mySurveys() {
+    public ModelAndView mySurveys(Model model) {
         ModelAndView mav = new ModelAndView("my-surveys");
 
         List<Survey> mySurveys = surveyService.getUserSurveys();
+        mySurveys.forEach(survey -> System.out.println(survey.getName()));
         mav.addObject("surveys", mySurveys);
 
         return mav;
@@ -103,9 +105,10 @@ public class SurveyViewController {
     }
 
     @PostMapping("/complete-survey/{id}")
-    public String completeSurvey(@RequestBody MultiValueMap<String, String> formData, @PathVariable String id) {
+    public String completeSurvey(@RequestBody MultiValueMap<String, String> formData, @PathVariable String id, RedirectAttributes redirectAttributes) {
         try {
-            surveyService.completeSurvey(formData, id);
+            String hash = surveyService.completeSurvey(formData, id);
+            redirectAttributes.addFlashAttribute("hash", hash);
             return "redirect:/surveys/complete";
         } catch (SurveyNotFound | UserDataInvalid | UserNotFound e) {
             return "redirect:/complete-survey/" + id;
@@ -113,11 +116,58 @@ public class SurveyViewController {
     }
 
     @GetMapping("/surveys/complete")
-    public ModelAndView completeSurvey() {
+    public ModelAndView completeSurvey(@ModelAttribute("hash") String hash) {
         ModelAndView mav = new ModelAndView("survey-complete");
-        mav.addObject("hash", new String("xczxczxcz").hashCode());
+        mav.addObject("hash", hash);
         return mav;
     }
+
+    @GetMapping("/surveys/my/{id}")
+    public String openSurveys(@PathVariable String id, Model model) {
+        SurveyOpenDto dto = new SurveyOpenDto();
+        model.addAttribute("dto", dto);
+        model.addAttribute("id", id);
+        return "open-surveys";
+    }
+
+    @PostMapping("/surveys/my/{id}")
+    public String openSurvey(@PathVariable String id, @Valid @ModelAttribute(name = "hash") SurveyOpenDto dto, RedirectAttributes redirectAttributes) {
+        Set<Answer> answers = answerRepository.findByAnswerIdUserIdAndAnswerIdSurveyId(dto.getHash(), id);
+
+        if (answers.size() > 0) {
+            redirectAttributes.addFlashAttribute("answers", answers);
+            return "redirect:/surveys/my/{id}/show";
+        }
+
+        return "redirect:/surveys";
+    }
+
+    @GetMapping("/surveys/my/{id}/show")
+    public ModelAndView mySurvey(@PathVariable String id, @ModelAttribute(name = "answers") Set<Answer> answers) throws
+                                                                                                                 SurveyNotFound {
+        SurveyDto survey= surveyService.getSurveyById(id);
+        ModelAndView mav = new ModelAndView("my-survey");
+        List<String> questionResponses = new ArrayList<>();
+        Map<String, String> answerKeyValue = answers.stream().collect(Collectors.toMap(answer -> answer.getAnswerId().getQuestionId(), Answer::getAnswerKey));
+        survey.getQuestions().forEach(question -> {
+            StringBuilder stringBuilder = new StringBuilder(question.getQuestionText());
+            stringBuilder.append(" Answer: ");
+            if (answerKeyValue.containsKey(question.getId())) {
+                question.getVariants().stream().filter(variant -> variant.getId().equals(answerKeyValue.get(question.getId())))
+                        .findFirst()
+                        .ifPresent(variant -> stringBuilder.append(variant.getVariant()));
+            } else {
+                stringBuilder.append("MISSING");
+            }
+            questionResponses.add(stringBuilder.toString());
+        });
+
+        mav.addObject("survey", survey);
+        mav.addObject("questionResponses", questionResponses);
+        return mav;
+    }
+
+
 
     @GetMapping("/show-report/{id}")
     public ModelAndView showReport(@PathVariable String id) {

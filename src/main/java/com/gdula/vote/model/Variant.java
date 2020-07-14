@@ -30,6 +30,6 @@ public class Variant {
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
 
-    @OneToMany(mappedBy = "answerKey", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "answerKey", cascade = CascadeType.REMOVE)
     private List<Answer> answers;
 }
