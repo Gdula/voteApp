@@ -13,10 +13,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 public class AnswerId implements Serializable {
-    @Column(length = 100)
+    @Column(length = 50)
     private String questionId;
-    @Column(length = 100)
+    @Column(length = 50)
     private String userId;
-    @Column(length = 100)
+    @Column(length = 50)
     private String surveyId;
 }

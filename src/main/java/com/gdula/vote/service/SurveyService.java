@@ -99,7 +99,8 @@ public class SurveyService {
         if(!survey.getParticipants().stream().filter(user -> user.getId() == userToAdd.getId())
                 .findFirst().isPresent()) {
             survey.getParticipants().add(userToAdd);
-            surveyRepository.save(survey);
+            userToAdd.setSurvey(survey);
+            userRepository.save(userToAdd);
         }
 
         survey.getQuestions().forEach(question -> {
