@@ -16,7 +16,10 @@ public final class SecurityUtils {
     private SecurityUtils() {
     }
 
-
+    /**
+     * method: getUserName
+     * Zwraca login użytkownika z sesji
+     */
     public String getUserName() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();

@@ -20,6 +20,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * method: configureGlobalSecurity
+     * Konfiguracja zabezpieczeń aplikacji
+     */
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         DaoAuthenticationProvider dap = new DaoAuthenticationProvider();
@@ -28,6 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(dap);
     }
 
+    /**
+     * method: configure
+     * Konfiguracja zabezpieczeń aplikacji
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()

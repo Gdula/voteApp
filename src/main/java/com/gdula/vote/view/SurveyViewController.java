@@ -39,6 +39,10 @@ public class SurveyViewController {
     @Autowired
     private SecurityUtils securityUtils;
 
+    /**
+     * method: displaySurveyTable
+     * Wyświetla ankiety
+     */
     @GetMapping("/surveys")
     public ModelAndView displaySurveyTable() {
         ModelAndView mav = new ModelAndView("surveys-table");
@@ -49,6 +53,10 @@ public class SurveyViewController {
         return mav;
     }
 
+    /**
+     * method: mySurveys
+     * Wyświetla ankiety użytkownika
+     */
     @GetMapping("/surveys/my")
     public ModelAndView mySurveys(Model model) {
         ModelAndView mav = new ModelAndView("my-surveys");
@@ -60,6 +68,10 @@ public class SurveyViewController {
         return mav;
     }
 
+    /**
+     * method: displayCreateSurveyForm
+     * Wyświetla formularz do tworzenia ankiety
+     */
     @GetMapping("/create-survey")
     public String displayCreateSurveyForm(Model model) {
         CreateUpdateSurveyDto dto = new CreateUpdateSurveyDto();
@@ -68,6 +80,10 @@ public class SurveyViewController {
         return "create-survey-form";
     }
 
+    /**
+     * method: createSurvey
+     * Zapisuje wypełniony formularz stworzonej ankiety
+     */
     @PostMapping("/create-survey")
     public String createSurvey(@Valid @ModelAttribute(name = "dto") CreateUpdateSurveyDto dto, BindingResult bindingResult, Model model) {
 
@@ -88,6 +104,10 @@ public class SurveyViewController {
         return "redirect:/surveys";
     }
 
+    /**
+     * method: showSurvey
+     * Wyświetla formularz do wypełnienia ankiety
+     */
     @GetMapping("/complete-survey/{id}")
     public ModelAndView showSurvey(@PathVariable String id) {
         try {
@@ -104,6 +124,10 @@ public class SurveyViewController {
         }
     }
 
+    /**
+     * method: completeSurvey
+     * Zapisuje wypełniony formularz stworzonej ankiety
+     */
     @PostMapping("/complete-survey/{id}")
     public String completeSurvey(@RequestBody MultiValueMap<String, String> formData, @PathVariable String id, RedirectAttributes redirectAttributes) {
         try {
@@ -115,6 +139,10 @@ public class SurveyViewController {
         }
     }
 
+    /**
+     * method: completeSurvey
+     * Wyświetla hasz po wypełnieniu ankiety
+     */
     @GetMapping("/surveys/complete")
     public ModelAndView completeSurvey(@ModelAttribute("hash") String hash) {
         ModelAndView mav = new ModelAndView("survey-complete");
@@ -122,6 +150,10 @@ public class SurveyViewController {
         return mav;
     }
 
+    /**
+     * method: openSurveys
+     * Wyświetla ankiety wypełnione przez uzytkownika
+     */
     @GetMapping("/surveys/my/{id}")
     public String openSurveys(@PathVariable String id, Model model) {
         SurveyOpenDto dto = new SurveyOpenDto();
@@ -130,6 +162,10 @@ public class SurveyViewController {
         return "open-surveys";
     }
 
+    /**
+     * method: openSurvey
+     * Znajduje wyniki ankiety za pomocą hasza wprowadzonego przez użytkownika i przekazuje je do /surveys/my/{id}/show
+     */
     @PostMapping("/surveys/my/{id}")
     public String openSurvey(@PathVariable String id, @Valid @ModelAttribute(name = "hash") SurveyOpenDto dto, RedirectAttributes redirectAttributes) {
         Set<Answer> answers = answerRepository.findByAnswerIdUserIdAndAnswerIdSurveyId(dto.getHash(), id);
@@ -142,6 +178,10 @@ public class SurveyViewController {
         return "redirect:/surveys";
     }
 
+    /**
+     * method: mySurvey
+     * Wyświela wyniki ankiety wypełnione przez uzytkownika
+     */
     @GetMapping("/surveys/my/{id}/show")
     public ModelAndView mySurvey(@PathVariable String id, @ModelAttribute(name = "answers") Set<Answer> answers) throws
                                                                                                                  SurveyNotFound {
@@ -154,7 +194,7 @@ public class SurveyViewController {
             stringBuilder.append(" Answer: ");
             if (answerKeyValue.containsKey(question.getId())) {
                 question.getVariants().stream().filter(variant -> variant.getId().equals(answerKeyValue.get(question.getId())))
-                        .findFirst()
+                         .findFirst()
                         .ifPresent(variant -> stringBuilder.append(variant.getVariant()));
             } else {
                 stringBuilder.append("MISSING");
@@ -167,8 +207,10 @@ public class SurveyViewController {
         return mav;
     }
 
-
-
+    /**
+     * method: showReport
+     * Wyświela wyniki ankiety wypełnione przez uzytkowników
+     */
     @GetMapping("/show-report/{id}")
     public ModelAndView showReport(@PathVariable String id) {
         try {
@@ -186,11 +228,19 @@ public class SurveyViewController {
         }
     }
 
+    /**
+     * method: checkIfVoted
+     * Sprawdza czy użytkownik zagłosował
+     */
     @GetMapping("/check-if-voted/{id}/")
     public String checkIfVoted(@PathVariable String id) {
         return "redirect:/survey-complete";
     }
 
+    /**
+     * method: check
+     * Sprawdza czy użytkownik zagłosował
+     */
     @PostMapping ("/check-if-voted/{id}/")
     public String check(@PathVariable String id) {
         try {

@@ -8,6 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class MyConfig {
+    /**
+     * method: loadUserByUsername
+     * Koduję hasło użytkownika
+     */
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();

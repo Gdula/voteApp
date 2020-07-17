@@ -39,7 +39,10 @@ public class QuestionViewController {
     @Autowired
     private SurveyService surveyService;
 
-
+    /**
+     * method: displayQuestionTable
+     * Wyświetla pytania
+     */
     @GetMapping("/questions")
     public ModelAndView displayQuestionTable() {
         ModelAndView mav = new ModelAndView("questions-table");
@@ -50,6 +53,10 @@ public class QuestionViewController {
         return mav;
     }
 
+    /**
+     * method: displayCreateQuestionForm
+     * Wyświetla formularz do tworzenia pytań
+     */
     @GetMapping("/create-question")
     public String displayCreateQuestionForm(Model model) {
         CreateUpdateQuestionDto dto = new CreateUpdateQuestionDto();
@@ -58,6 +65,10 @@ public class QuestionViewController {
         return "create-question-form";
     }
 
+    /**
+     * method: createQuestion
+     * Tworzy pytanie
+     */
     @PostMapping("/create-question")
     public String createQuestion(@Valid @ModelAttribute(name = "dto") CreateUpdateQuestionDto dto, BindingResult bindingResult, Model model) {
 
@@ -78,6 +89,10 @@ public class QuestionViewController {
         return "redirect:/questions";
     }
 
+    /**
+     * method: createQuestion
+     * Wyświetla pytania i warianty
+     */
     @GetMapping("/questions-variants")
     public ModelAndView displayQuestionsAndVariants() {
         ModelAndView mav = new ModelAndView("questions-variants-table");
@@ -91,6 +106,10 @@ public class QuestionViewController {
         return mav;
     }
 
+    /**
+     * method: displayAddQuestionForm
+     * Wyświetla formularz dodawania pytania
+     */
     @GetMapping("/add-question/{id}")
     public ModelAndView displayAddQuestionForm(@PathVariable String id, @ModelAttribute CreateUpdateQuestionDto dto) {
         try {
@@ -105,6 +124,10 @@ public class QuestionViewController {
         }
     }
 
+    /**
+     * method: addQuestion
+     * Dodaje pytanie
+     */
     @PostMapping("/add-question/{id}")
     public String addQuestion(@ModelAttribute CreateUpdateQuestionDto dto, @PathVariable String id) {
         try {

@@ -39,14 +39,14 @@ public class SurveyService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private UserService userService;
-    @Autowired
-    private UserDtoMapper userDtoMapper;
-    @Autowired
     private QuestionDtoMapper questionDtoMapper;
     @Autowired
     private AnswerRepository answerRepository;
 
+    /**
+     * method: createSurvey
+     * Tworzy ankietę
+     */
     public SurveyDto createSurvey(CreateUpdateSurveyDto dto) throws SurveyDataInvalid {
         if(dto.getName().isEmpty()) {
             throw new SurveyDataInvalid();
@@ -56,6 +56,10 @@ public class SurveyService {
         return mapper.toDto(savedSurvey);
     }
 
+    /**
+     * method: updateSurvey
+     * Aktualizuje ankietę
+     */
     public SurveyDto updateSurvey(CreateUpdateSurveyDto dto, String id) throws SurveyNotFound {
         Survey survey = surveyRepository.findById(id).orElseThrow(() -> new SurveyNotFound());
 
@@ -67,6 +71,10 @@ public class SurveyService {
         return mapper.toDto(savedSurvey);
     }
 
+    /**
+     * method: getAllSurveys
+     * Zwraca wszystkie ankiety
+     */
     public List<SurveyDto> getAllSurveys() {
         return surveyRepository.findAll()
                 .stream()
@@ -74,12 +82,20 @@ public class SurveyService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * method: getSurveyById
+     * Zwraca ankietę po ID
+     */
     public SurveyDto getSurveyById(String id) throws SurveyNotFound {
         return surveyRepository.findById(id)
                 .map(c -> mapper.toDto(c))
                 .orElseThrow(() -> new SurveyNotFound());
     }
 
+    /**
+     * method: getSurveyById
+     * Usuwa ankietę po ID
+     */
     public SurveyDto deleteSurveyById(String id) throws SurveyNotFound {
         Survey survey = surveyRepository.findById(id)
                 .orElseThrow(() -> new SurveyNotFound());
@@ -89,6 +105,10 @@ public class SurveyService {
         return mapper.toDto(survey);
     }
 
+    /**
+     * method: getSurveyById
+     * Zapisuje odpowiedzi wybrane przez użytkownika i zwraca hasz dzięki któremu jesteśmy w stanie sprawdzić nasze wybory w ankiecie.
+     */
     public String completeSurvey(MultiValueMap<String, String> answers, String id) throws SurveyNotFound, UserNotFound, UserDataInvalid {
         String hash = UUID.randomUUID().toString();
         Survey survey = surveyRepository.findById(id).orElseThrow(() -> new SurveyNotFound());
@@ -120,6 +140,10 @@ public class SurveyService {
         return hash;
     }
 
+    /**
+     * method: addSurveyQuestion
+     * Dodaje pytanie do ankiety
+     */
     public SurveyDto addSurveyQuestion(CreateUpdateQuestionDto dto, String id) throws SurveyNotFound {
         Survey surveyToSave = surveyRepository.findById(id).orElseThrow(() -> new SurveyNotFound());
 
@@ -132,6 +156,10 @@ public class SurveyService {
         return mapper.toDto(surveyToSave);
     }
 
+    /**
+     * method: getUserSurveys
+     * Zwraca ankiety użytkownika
+     */
     public List<Survey> getUserSurveys() {
         String userName = securityUtils.getUserName();
         User user = userRepository.findFirstByLogin(userName);

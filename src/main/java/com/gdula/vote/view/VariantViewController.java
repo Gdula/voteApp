@@ -42,12 +42,10 @@ public class VariantViewController {
     @Autowired
     private QuestionDtoMapper questionDtoMapper;
 
-    @Autowired
-    private VariantDtoMapper variantDtoMapper;
-
-    @Autowired
-    private VariantRepository variantRepository;
-
+    /**
+     * method: displayVariantTable
+     * Wyświetla warianty
+     */
     @GetMapping("/variants")
     public ModelAndView displayVariantTable() {
         ModelAndView mav = new ModelAndView("variants-table");
@@ -58,6 +56,10 @@ public class VariantViewController {
         return mav;
     }
 
+    /**
+     * method: displayCreateVariantForm
+     * Wyświetla formularz do tworzenia wariantów
+     */
     @GetMapping("/create-variant")
     public String displayCreateVariantForm(Model model) {
         CreateUpdateVariantDto dto = new CreateUpdateVariantDto();
@@ -66,6 +68,10 @@ public class VariantViewController {
         return "create-variant-form";
     }
 
+    /**
+     * method: createVariant
+     * Tworzy wariant
+     */
     @PostMapping("/create-variant")
     public String createVariant (@Valid @ModelAttribute(name = "dto") CreateUpdateVariantDto dto, BindingResult bindingResult, Model model) {
 
@@ -86,6 +92,10 @@ public class VariantViewController {
         return "redirect:/variants";
     }
 
+    /**
+     * method: displayAddVariantForm
+     * Wyświetla formularz tworzenia wariantu
+     */
     @GetMapping("/add-variant/{id}")
     public ModelAndView displayAddVariantForm(@PathVariable String id, @ModelAttribute CreateUpdateVariantDto dto) {
         try {
@@ -103,6 +113,10 @@ public class VariantViewController {
         }
     }
 
+    /**
+     * method: addVariant
+     * Dodaje wariant do pytania
+     */
     @PostMapping("/add-variant/{id}")
     public String addVariant(@ModelAttribute CreateUpdateVariantDto dto, @PathVariable String id) {
         try {
@@ -113,6 +127,10 @@ public class VariantViewController {
         }
     }
 
+    /**
+     * method: incrementVariant
+     * Zwiększa wartość wariantu
+     */
     @PostMapping("/variant/increment/{id}/{ids}")
     public String incrementVariant(@PathVariable String id, @PathVariable String ids) {
         try {
@@ -123,6 +141,10 @@ public class VariantViewController {
         }
     }
 
+    /**
+     * method: displaySurvey
+     * Zwiększa wartość wariantu
+     */
     @GetMapping("/variant/increment/{id}/{ids}")
     public String displaySurvey(@PathVariable String id, @PathVariable String ids) {
         try {

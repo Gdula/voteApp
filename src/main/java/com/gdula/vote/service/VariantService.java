@@ -30,6 +30,10 @@ public class VariantService {
         this.mapper = mapper;
     }
 
+    /**
+     * method: getAllVariants
+     * Zwraca wszystkie warianty
+     */
     public List<VariantDto> getAllVariants() {
         return variantRepository.findAll()
                 .stream()
@@ -37,17 +41,29 @@ public class VariantService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * method: getVariantById
+     * Zwraca wariant po ID
+     */
     public VariantDto getVariantById(String id) throws VariantNotFound {
         return variantRepository.findById(id)
                 .map(q -> mapper.toDto(q)).orElseThrow(() -> new VariantNotFound());
     }
 
+    /**
+     * method: deleteVariantById
+     * Usuwa wariant po ID
+     */
     public VariantDto deleteVariantById(String id) throws VariantNotFound {
         Variant variant = variantRepository.findById(id).orElseThrow(() -> new VariantNotFound());
         variantRepository.delete(variant);
         return mapper.toDto(variant);
     }
 
+    /**
+     * method: createVariant
+     * Tworzy wariant
+     */
     public VariantDto createVariant(CreateUpdateVariantDto dto) throws VariantDataInvalid {
         if(dto.getVariant().isEmpty()) {
             throw new VariantDataInvalid();
@@ -58,6 +74,10 @@ public class VariantService {
         return mapper.toDto(savedVariant);
     }
 
+    /**
+     * method: updateVariant
+     * Aktualizuje wariant
+     */
     public VariantDto updateVariant(CreateUpdateVariantDto dto, String id) throws VariantNotFound {
         Variant variant = variantRepository.findById(id).orElseThrow(() -> new VariantNotFound());
 
@@ -67,7 +87,10 @@ public class VariantService {
         return mapper.toDto(variant);
     }
 
-
+    /**
+     * method: incrementVariant
+     * Zwiększa wartość variantu
+     */
     public VariantDto incrementVariant(String id) throws VariantNotFound {
         Variant variant = variantRepository.findById(id).orElseThrow(() -> new VariantNotFound());
 

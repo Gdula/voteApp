@@ -47,6 +47,10 @@ public class QuestionService {
         this.securityUtils = securityUtils;
     }
 
+    /**
+     * method: getAllQuestions
+     * Zwraca wszystkie pytania
+     */
     public List<QuestionDto> getAllQuestions() {
         return questionRepository.findAll()
                 .stream()
@@ -54,11 +58,19 @@ public class QuestionService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * method: getQuestionById
+     * Zwraca pytanie po ID
+     */
     public QuestionDto getQuestionById(String id) throws QuestionNotFound {
         return questionRepository.findById(id)
                 .map(q -> questionDtoMapper.toDto(q)).orElseThrow(() -> new QuestionNotFound());
     }
 
+    /**
+     * method: deleteQuestionById
+     * Usuwa pytanie po ID
+     */
     public QuestionDto deleteQuestionById(String id) throws QuestionNotFound {
         Question question = questionRepository.findById(id).orElseThrow(() -> new QuestionNotFound());
         questionRepository.delete(question);
@@ -66,6 +78,10 @@ public class QuestionService {
         return questionDtoMapper.toDto(question);
     }
 
+    /**
+     * method: createQuestion
+     * Tworzy pytanie
+     */
     public QuestionDto createQuestion(CreateUpdateQuestionDto dto) throws QuestionDataInvalid {
         if(dto.getQuestionText().isEmpty()) {
             throw new QuestionDataInvalid();
@@ -78,6 +94,10 @@ public class QuestionService {
         return questionDtoMapper.toDto(savedQuestion);
     }
 
+    /**
+     * method: upadateQuestion
+     * Aktualizuje pytanie
+     */
     public QuestionDto upadateQuestion(CreateUpdateQuestionDto dto, String id) throws QuestionNotFound {
         Question question = questionRepository.findById(id).orElseThrow(() -> new QuestionNotFound());
 
@@ -88,6 +108,10 @@ public class QuestionService {
         return  questionDtoMapper.toDto(question);
     }
 
+    /**
+     * method: upadateQuestion
+     * Zwraca wszystkie warianty pytania po ID pytania
+     */
     public List<VariantDto> getAllQuestionVariantsById(String id) throws QuestionNotFound {
         return questionRepository.findById(id).orElseThrow(() -> new QuestionNotFound())
                 .getVariants()
@@ -97,6 +121,10 @@ public class QuestionService {
 
     }
 
+    /**
+     * method: upadateQuestion
+     * Dodaje wariant do pytania
+     */
     public QuestionDto addQuestionVariant(CreateUpdateVariantDto dto, String id) throws QuestionNotFound, VariantDataInvalid {
         Question questionToSave = questionRepository.findById(id).orElseThrow(() -> new QuestionNotFound());
 

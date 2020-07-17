@@ -9,6 +9,11 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+/**
+ * class: Odpowiedź
+ * Reprezentuje odpowiedź w ankiecie
+ * Ankieta może posiadać wiele odpowiedzi
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

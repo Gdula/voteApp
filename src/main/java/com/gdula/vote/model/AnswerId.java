@@ -8,6 +8,11 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
+/**
+ * class: OdpowiedźID
+ * Reprezentuje odpowiedź w ankiencie
+ * Posiada informacje na temat ID question, usera, oraz survey.
+ */
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor

@@ -30,6 +30,10 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * method: createUser
+     * Tworzy użytkownika
+     */
     public UserDto createUser(CreateUserDto dto) throws UserDataInvalid, UserAlreadyExists {
         if (dto.getLogin() == null || dto.getLogin().isEmpty()
                 || dto.getPassword() == null || dto.getPassword().isEmpty()) {
@@ -48,7 +52,10 @@ public class UserService {
 
         return mapper.toDto(savedUser);
     }
-
+    /**
+     * method: updateUser
+     * Aktualizuje użytkownika
+     */
     public UserDto updateUser(UpdateUserDto dto, String id) throws UserNotFound, UserDataInvalid {
         if (dto.getPassword() == null || dto.getPassword().isEmpty()) {
             throw new UserDataInvalid();
@@ -68,6 +75,10 @@ public class UserService {
 
     }
 
+    /**
+     * method: getAllUsers
+     * Zwraca wszystkich użytkowników
+     */
     public List<UserDto> getAllUsers() {
         return userRepository.findAll()
                 .stream()
@@ -75,12 +86,20 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * method: getUserById
+     * Zwraca użytkownika po ID
+     */
     public UserDto getUserById(String id) throws UserNotFound {
         return userRepository.findById(id)
                 .map(c -> mapper.toDto(c))
                 .orElseThrow(() -> new UserNotFound());
     }
 
+    /**
+     * method: deleteUserById
+     * Usuwa użytkownika po ID
+     */
     public UserDto deleteUserById(String id) throws UserNotFound {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFound());

@@ -36,6 +36,10 @@ public class UserViewController {
     @Autowired
     private UserDtoMapper userDtoMapper;
 
+    /**
+     * method: displayUsersTable
+     * Wyświetla tabele z użytkownikami
+     */
     @GetMapping("/users")
     public ModelAndView displayUsersTable() {
         ModelAndView mav = new ModelAndView("users-table");
@@ -46,6 +50,10 @@ public class UserViewController {
         return mav;
     }
 
+    /**
+     * method: displayCreateUserForm
+     * Wyświetla formularz tworzenia użytkownika
+     */
     @GetMapping("/create-user")
     public String displayCreateUserForm(Model model) {
         List<UserDto> allUsers = userService.getAllUsers();
@@ -63,7 +71,10 @@ public class UserViewController {
 
         return "create-user-form";
     }
-
+    /**
+     * method: createUser
+     * Tworzy użytkownika
+     */
     @PostMapping("/create-user")
     public String createUser(@Valid @ModelAttribute(name = "dto") CreateUserDto dto, BindingResult bindingResult, Model model) {
 
@@ -85,6 +96,10 @@ public class UserViewController {
         return "redirect:/users";
     }
 
+    /**
+     * method: deleteUser
+     * Usuwa użytkownika
+     */
     @GetMapping("/delete-user/{id}")
     public String deleteUser(@PathVariable String id) {
         try {
@@ -96,6 +111,10 @@ public class UserViewController {
         return "redirect:/users";
     }
 
+    /**
+     * method: displayUpdateUserForm
+     * Wyświetla formularz aktualizacji użytkownika
+     */
     @GetMapping("/update-user/{id}")
     public ModelAndView displayUpdateUserForm(@PathVariable String id) {
 
@@ -113,6 +132,10 @@ public class UserViewController {
         }
     }
 
+    /**
+     * method: updateUser
+     * Aktualizuje użytkownika
+     */
     @PostMapping("/update-user/{id}")
     public String updateUser(@ModelAttribute UpdateUserDto dto, @PathVariable String id) {
 
