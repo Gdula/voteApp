@@ -13,14 +13,15 @@ import com.gdula.vote.service.exception.UserDataInvalid;
 import com.gdula.vote.service.exception.UserNotFound;
 import com.gdula.vote.service.mapper.QuestionDtoMapper;
 import com.gdula.vote.service.mapper.SurveyDtoMapper;
-import com.gdula.vote.service.mapper.UserDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -42,7 +43,10 @@ public class SurveyService {
     private QuestionDtoMapper questionDtoMapper;
     @Autowired
     private AnswerRepository answerRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    private StringBuilder stringBuilder;
     /**
      * method: createSurvey
      * Tworzy ankietę
@@ -110,7 +114,37 @@ public class SurveyService {
      * Zapisuje odpowiedzi wybrane przez użytkownika i zwraca hasz dzięki któremu jesteśmy w stanie sprawdzić nasze wybory w ankiecie.
      */
     public String completeSurvey(MultiValueMap<String, String> answers, String id) throws SurveyNotFound, UserNotFound, UserDataInvalid {
-        String hash = UUID.randomUUID().toString();
+        System.out.println(answers);
+        List<String> answersValueList = new ArrayList<>();
+
+        for (Map.Entry<String, List<String>> entry : answers.entrySet()) {
+            answersValueList.add(entry.getValue().get(0));
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (String answer : answersValueList) {
+            stringBuilder.append(answer);
+        }
+
+        String answersInOneString = stringBuilder.toString();
+        String plaintext = answersInOneString;
+        MessageDigest m = null;
+        try {
+            m = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        m.reset();
+        m.update(plaintext.getBytes());
+        byte[] digest = m.digest();
+        BigInteger bigInt = new BigInteger(1,digest);
+        String hashtext = bigInt.toString(16);
+        while(hashtext.length() < 32 ){
+            hashtext = "0"+hashtext;
+        }
+
+        String hash = hashtext;
         Survey survey = surveyRepository.findById(id).orElseThrow(() -> new SurveyNotFound());
 
         String userName = securityUtils.getUserName();

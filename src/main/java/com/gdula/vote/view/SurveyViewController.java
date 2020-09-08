@@ -11,6 +11,7 @@ import com.gdula.vote.service.exception.SurveyNotFound;
 import com.gdula.vote.service.exception.UserDataInvalid;
 import com.gdula.vote.service.exception.UserNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -20,6 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,6 +42,8 @@ public class SurveyViewController {
     private SurveyService surveyService;
     @Autowired
     private SecurityUtils securityUtils;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * method: displaySurveyTable
@@ -184,7 +190,7 @@ public class SurveyViewController {
      */
     @GetMapping("/surveys/my/{id}/show")
     public ModelAndView mySurvey(@PathVariable String id, @ModelAttribute(name = "answers") Set<Answer> answers) throws
-                                                                                                                 SurveyNotFound {
+            SurveyNotFound, NoSuchAlgorithmException {
         SurveyDto survey= surveyService.getSurveyById(id);
         ModelAndView mav = new ModelAndView("my-survey");
         List<String> questionResponses = new ArrayList<>();
@@ -196,12 +202,41 @@ public class SurveyViewController {
                 question.getVariants().stream().filter(variant -> variant.getId().equals(answerKeyValue.get(question.getId())))
                          .findFirst()
                         .ifPresent(variant -> stringBuilder.append(variant.getVariant()));
+
             } else {
                 stringBuilder.append("MISSING");
             }
             questionResponses.add(stringBuilder.toString());
         });
 
+        List<String> answersValueList = new ArrayList<>();
+
+        for (Map.Entry<String, String> entry : answerKeyValue.entrySet()) {
+            answersValueList.add(entry.getValue());
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (String answer : answersValueList) {
+            stringBuilder.append(answer);
+        }
+
+        String answersInOneString = stringBuilder.toString();
+        System.out.println(answersInOneString + " survey vc");
+
+        String plaintext = answersInOneString;
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.reset();
+        m.update(plaintext.getBytes());
+        byte[] digest = m.digest();
+        BigInteger bigInt = new BigInteger(1,digest);
+        String hashtext = bigInt.toString(16);
+        while(hashtext.length() < 32 ){
+            hashtext = "0"+hashtext;
+        }
+        String hash = hashtext;
+
+        mav.addObject("hash", hash);
         mav.addObject("survey", survey);
         mav.addObject("questionResponses", questionResponses);
         return mav;
