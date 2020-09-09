@@ -178,6 +178,7 @@ public class SurveyViewController {
 
         if (answers.size() > 0) {
             redirectAttributes.addFlashAttribute("answers", answers);
+            redirectAttributes.addFlashAttribute("inputHash", dto.getHash());
             return "redirect:/surveys/my/{id}/show";
         }
 
@@ -235,6 +236,8 @@ public class SurveyViewController {
             hashtext = "0"+hashtext;
         }
         String hash = hashtext;
+
+
 
         mav.addObject("hash", hash);
         mav.addObject("survey", survey);

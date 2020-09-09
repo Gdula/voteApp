@@ -41,6 +41,8 @@
     </ul>
     Hasz na podstawie otrzymanych wyników
     <b th:text="${hash}"></b>
+    <div th:if="${#strings.equals(#strings.toString(hash), #strings.toString(inputHash))}">Hasz zgodny z bazą</div>
+
 </div>
 </body>
 </html>
